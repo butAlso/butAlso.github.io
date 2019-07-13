@@ -145,11 +145,15 @@ var _hmt = _hmt || [];
             <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-07-13T04:15:51.000Z">2019-07-13</time>
                 
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    几秒 读完 (大约 0 个字)
+                    5 分钟 读完 (大约 765 个字)
                 </span>
                 
                 
@@ -158,11 +162,19 @@ var _hmt = _hmt || [];
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/13/most-stones-removed-with-same-row-or-column/">most-stones-removed-with-same-row-or-column</a>
+                <a class="has-link-black-ter" href="/2019/07/13/most-stones-removed-with-same-row-or-column/">移除最多的同行或同列石头</a>
             
         </h1>
         <div class="content">
-            
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/most-stones-removed-with-same-row-or-column/" target="_blank" rel="noopener">most-stones-removed-with-same-row-or-column</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在二维平面上，我们将石头放置在一些整数坐标点上。每个坐标点上最多只能有一块石头。现在，move 操作将会移除与网格上的某一块石头共享一列或一行的一块石头。我们最多能执行多少次 move 操作？</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>刚开始看到这道题目的时候，一脸蒙蔽，不是很明白最多move操作的意思，然后把示例画成二维图，试了一下，终于明白，这道题目的意思是，让最终每行每列上最多只能有一块石头，最少剩下多少块石头，然后返回原石头数量-剩余石头数量。</li>
+<li>很显然，这道题目可以使用深度优先搜索和并查集的方法。我们可以将每行每列定义为一个component，将有石头相连的component合并成一个（并查集的方法），最后在统计有多少个独立的component，即剩下的石头数量；也可以对每块石头所在的component执行一个深度优先遍历，最后统计有从入口执行了多少次，即剩下的石头数量。</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search-time-O-N2-memory：O-N）"><a href="#深度优先遍历（Depth-first-Search-time-O-N2-memory：O-N）" class="headerlink" title="深度优先遍历（Depth-first-Search,time: O(N2),memory：O(N）"></a>深度优先遍历（Depth-first-Search,time: O(N<sup>2</sup>),memory：O(N）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">removeStones</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] stones)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = stones.length;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-comment">// 这里无所谓行和列的概念，我们将行和列都当做一个component，</span></span><br><span class="line">        <span class="hljs-comment">// graph[i][0]记录了第i块石头的邻居数量。</span></span><br><span class="line">        <span class="hljs-keyword">int</span>[][] graph = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N][N];</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = i + <span class="hljs-number">1</span>; j &lt; N; j++) &#123;</span><br><span class="line">                <span class="hljs-comment">// 两块石头在同一行或同一列，将他们记录为邻居</span></span><br><span class="line">                <span class="hljs-keyword">if</span> (stones[i][<span class="hljs-number">0</span>] == stones[j][<span class="hljs-number">0</span>] || stones[i][<span class="hljs-number">1</span>] == stones[j][<span class="hljs-number">1</span>]) &#123;</span><br><span class="line">                    graph[i][++graph[i][<span class="hljs-number">0</span>]] = j;</span><br><span class="line">                    graph[j][++graph[j][<span class="hljs-number">0</span>]] = i;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">boolean</span>[] seen = <span class="hljs-keyword">new</span> <span class="hljs-keyword">boolean</span>[N];    <span class="hljs-comment">// 深搜遍历过的标志，避免死循环</span></span><br><span class="line">        <span class="hljs-keyword">int</span> ans = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (!seen[i]) &#123;</span><br><span class="line">                seen[i] = <span class="hljs-keyword">true</span>;</span><br><span class="line">                Stack&lt;Integer&gt; stack = <span class="hljs-keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">                ans--;</span><br><span class="line">                stack.push(i);</span><br><span class="line">                <span class="hljs-keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">                    <span class="hljs-keyword">int</span> cur = stack.pop();</span><br><span class="line">                    ans++;</span><br><span class="line">                    <span class="hljs-comment">// 将该块石头的所有邻居推入栈</span></span><br><span class="line">                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">1</span>; j &lt;= graph[cur][<span class="hljs-number">0</span>]; j++) &#123;</span><br><span class="line">                        <span class="hljs-keyword">if</span> (!seen[graph[cur][j]]) &#123;</span><br><span class="line">                            seen[graph[cur][j]] = <span class="hljs-keyword">true</span>;</span><br><span class="line">                            stack.push(graph[cur][j]);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="并查集（Union-Find-time-O-NlogN-memory：O-N）"><a href="#并查集（Union-Find-time-O-NlogN-memory：O-N）" class="headerlink" title="并查集（Union-Find,time: O(NlogN),memory：O(N）"></a>并查集（Union-Find,time: O(NlogN),memory：O(N）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">removeStones</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] stones)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = stones.length;</span><br><span class="line">        DSU dsu = <span class="hljs-keyword">new</span> DSU(<span class="hljs-number">20000</span>);</span><br><span class="line">        <span class="hljs-comment">// 将这块石头所在行和列合并成一个component</span></span><br><span class="line">        <span class="hljs-comment">// 最终，能合并在一起的石头会拥有同样的parent</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) dsu.union(stones[i][<span class="hljs-number">0</span>], stones[i][<span class="hljs-number">1</span>] + <span class="hljs-number">10000</span>);</span><br><span class="line">        </span><br><span class="line">        HashSet&lt;Integer&gt; seen = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">        <span class="hljs-comment">// 遍历所有的石头，找出它的父节点，即最后剩余的最少石头数量。</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) seen.add(dsu.find(stones[i][<span class="hljs-number">0</span>]));</span><br><span class="line">        <span class="hljs-keyword">return</span> N - seen.size();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">DSU</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] parent;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">DSU</span><span class="hljs-params">(<span class="hljs-keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">            parent = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[n];</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) parent[i] = i;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (parent[p] != p) parent[p] = find(parent[p]);</span><br><span class="line">            <span class="hljs-keyword">return</span> parent[p];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">            parent[find(p)] = find(q);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </div>
         
         
@@ -462,7 +474,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">leetcode</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/leetcode/Medium/">
@@ -470,7 +482,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">Medium</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">3</span>
+                <span class="level-item tag">4</span>
             </span>
         </a></li></ul></li>
             </ul>
@@ -484,7 +496,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 10px;">Union-Find</a>
+        <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 15px;">Union-Find</a>
     </div>
 </div>
 
@@ -503,16 +515,16 @@ var _hmt = _hmt || [];
             
             <a href="/2019/07/13/most-stones-removed-with-same-row-or-column/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="most-stones-removed-with-same-row-or-column">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="移除最多的同行或同列石头">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T04:15:51.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/most-stones-removed-with-same-row-or-column/" class="has-link-black-ter is-size-6">most-stones-removed-with-same-row-or-column</a>
+                    <a href="/2019/07/13/most-stones-removed-with-same-row-or-column/" class="has-link-black-ter is-size-6">移除最多的同行或同列石头</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
                     </p>
                 </div>
             </div>
@@ -625,7 +637,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">3</span>
+                        <span class="tag is-grey">4</span>
                     </a>
                 </div>
                 
@@ -646,7 +658,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Union-Find/">
                         <span class="tag">Union-Find</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
@@ -677,16 +689,16 @@ var _hmt = _hmt || [];
             
             <a href="/2019/07/13/most-stones-removed-with-same-row-or-column/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="most-stones-removed-with-same-row-or-column">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="移除最多的同行或同列石头">
                 </p>
             </a>
             
             <div class="media-content">
                 <div class="content">
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-13T04:15:51.000Z">2019-07-13</time></div>
-                    <a href="/2019/07/13/most-stones-removed-with-same-row-or-column/" class="has-link-black-ter is-size-6">most-stones-removed-with-same-row-or-column</a>
+                    <a href="/2019/07/13/most-stones-removed-with-same-row-or-column/" class="has-link-black-ter is-size-6">移除最多的同行或同列石头</a>
                     <p class="is-size-7 is-uppercase">
-                        
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
                     </p>
                 </div>
             </div>
@@ -799,7 +811,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">3</span>
+                        <span class="tag is-grey">4</span>
                     </a>
                 </div>
                 
@@ -820,7 +832,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Union-Find/">
                         <span class="tag">Union-Find</span>
-                        <span class="tag is-grey">1</span>
+                        <span class="tag is-grey">2</span>
                     </a>
                 </div>
                 
