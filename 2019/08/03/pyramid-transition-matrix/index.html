@@ -2,20 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>标签: Breadth-first-Search - butalso</title>
+<title>pyramid-transition-matrix - butalso</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="keywords" content="blogs">
-<meta property="og:type" content="website">
-<meta property="og:title" content="butalso">
-<meta property="og:url" content="https://butalso.github.io/tags/Breadth-first-Search/index.html">
+    <meta name="description" content="题目链接：pyramid-transition-matrix 题目描述现在，我们用一些方块来堆砌一个金字塔。 每个方块用仅包含一个字母的字符串表示，例如 “Z”。使用三元组表示金字塔的堆砌规则如下：(A, B, C) 表示，“C”为顶层方块，方块“A”、“B”分别作为方块“C”下一层的的左、右子块。当且仅当(A, B, C)是被允许的三元组，我们才可以将其堆砌上。初始时，给定金字塔的基层 bott">
+<meta name="keywords" content="Depth-first-Search,Bit-Manipulation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pyramid-transition-matrix">
+<meta property="og:url" content="https://butalso.github.io/2019/08/03/pyramid-transition-matrix/index.html">
 <meta property="og:site_name" content="butalso">
+<meta property="og:description" content="题目链接：pyramid-transition-matrix 题目描述现在，我们用一些方块来堆砌一个金字塔。 每个方块用仅包含一个字母的字符串表示，例如 “Z”。使用三元组表示金字塔的堆砌规则如下：(A, B, C) 表示，“C”为顶层方块，方块“A”、“B”分别作为方块“C”下一层的的左、右子块。当且仅当(A, B, C)是被允许的三元组，我们才可以将其堆砌上。初始时，给定金字塔的基层 bott">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://butalso.github.io/images/og_image.png">
+<meta property="og:updated_time" content="2019-08-03T05:09:44.118Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="butalso">
+<meta name="twitter:title" content="pyramid-transition-matrix">
+<meta name="twitter:description" content="题目链接：pyramid-transition-matrix 题目描述现在，我们用一些方块来堆砌一个金字塔。 每个方块用仅包含一个字母的字符串表示，例如 “Z”。使用三元组表示金字塔的堆砌规则如下：(A, B, C) 表示，“C”为顶层方块，方块“A”、“B”分别作为方块“C”下一层的的左、右子块。当且仅当(A, B, C)是被允许的三元组，我们才可以将其堆砌上。初始时，给定金字塔的基层 bott">
 <meta name="twitter:image" content="https://butalso.github.io/images/og_image.png">
 
 
@@ -100,7 +104,7 @@ var _hmt = _hmt || [];
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="butalso" height="28">
+                <img src="/images/logo.svg" alt="pyramid-transition-matrix" height="28">
             
             </a>
         </div>
@@ -137,23 +141,12 @@ var _hmt = _hmt || [];
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">Breadth-first-Search</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-27T04:27:36.000Z">2019-07-27</time>
+                <time class="level-item has-text-grey" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
@@ -163,7 +156,7 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 792 个字)
+                    5 分钟 读完 (大约 717 个字)
                 </span>
                 
                 
@@ -172,38 +165,110 @@ var _hmt = _hmt || [];
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/07/27/minesweeper/">minesweeper</a>
+                pyramid-transition-matrix
             
         </h1>
         <div class="content">
-            <p>题目链接：<a href="https://leetcode-cn.com/problems/most-stones-removed-with-same-row-or-column/" target="_blank" rel="noopener">minesweeper</a></p>
-<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>让我们一起来玩扫雷游戏！<br>给定一个代表游戏板的二维字符矩阵。 ‘M’ 代表一个未挖出的地雷，’E’ 代表一个未挖出的空方块，’B’ 代表没有相邻（上，下，左，右，和所有4个对角线）地雷的已挖出的空白方块，数字（’1’ 到 ‘8’）表示有多少地雷与这块已挖出的方块相邻，’X’ 则表示一个已挖出的地雷。<br>现在给出在所有未挖出的方块中（’M’或者’E’）的下一个点击位置（行和列索引），根据以下规则，返回相应位置被点击后对应的面板：</p>
-<ol>
-<li>如果一个地雷（’M’）被挖出，游戏就结束了- 把它改为 ‘X’。</li>
-<li>如果一个没有相邻地雷的空方块（’E’）被挖出，修改它为（’B’），并且所有和其相邻的方块都应该被递归地揭露。</li>
-<li>如果一个至少与一个地雷相邻的空方块（’E’）被挖出，修改它为数字（’1’到’8’），表示相邻地雷的数量。</li>
-<li>如果在此次点击中，若无更多方块可被揭露，则返回面板。</li>
-</ol>
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/pyramid-transition-matrix/" target="_blank" rel="noopener">pyramid-transition-matrix</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>现在，我们用一些方块来堆砌一个金字塔。 每个方块用仅包含一个字母的字符串表示，例如 “Z”。使用三元组表示金字塔的堆砌规则如下：(A, B, C) 表示，“C”为顶层方块，方块“A”、“B”分别作为方块“C”下一层的的左、右子块。当且仅当(A, B, C)是被允许的三元组，我们才可以将其堆砌上。初始时，给定金字塔的基层 bottom，用一个字符串表示。一个允许的三元组列表 allowed，每个三元组用一个长度为 3 的字符串表示。如果可以由基层一直堆到塔尖返回true，否则返回false。</p>
 <h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>这里的相邻是上下左右和四个对角线，注意不是只有上下左右</li>
+<li>首先，看完题目，我们可以很清楚的知道，我们需要将每层的各种可能性组合起来，然后不断往金字塔顶部迭代（递归），找到一种可能性。</li>
+<li>由于每层的方块数都不一致，因此，我们不能以层作为递归条件，而且，可能有好多层，for循环次数不一致。应该以每个块作为递归条件，在每次递归中，再加以判断是不是应该换层。</li>
 </ol>
-<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">char</span>[][] updateBoard(<span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">int</span>[] click) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> row = click[<span class="hljs-number">0</span>];</span><br><span class="line">        <span class="hljs-keyword">int</span> col = click[<span class="hljs-number">1</span>];</span><br><span class="line">        <span class="hljs-keyword">if</span> (board[row][col] == <span class="hljs-string">'M'</span>) board[row][col] = <span class="hljs-string">'X'</span>;  <span class="hljs-comment">// 踩雷直接返回</span></span><br><span class="line">        <span class="hljs-keyword">else</span> dfs(board, row, col);</span><br><span class="line">        <span class="hljs-keyword">return</span> board;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (isOutOfBoundary(board, row, col) || board[row][col] != <span class="hljs-string">'E'</span>) <span class="hljs-keyword">return</span>; <span class="hljs-comment">// 越界或已经遍历过</span></span><br><span class="line">        <span class="hljs-keyword">int</span> mines = getNumOfMinesAround(board, row, col);</span><br><span class="line">        <span class="hljs-keyword">if</span> (mines == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            <span class="hljs-comment">// 周围地雷数量为0，才会递归遍历</span></span><br><span class="line">            board[row][col] = <span class="hljs-string">'B'</span>;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = -<span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">1</span>; i++) &#123;</span><br><span class="line">                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = -<span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">1</span>; j++) &#123;</span><br><span class="line">                    dfs(board, row + i, col + j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">            board[row][col] = (<span class="hljs-keyword">char</span>)(<span class="hljs-string">'0'</span> + mines);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 获取周围地雷数量</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNumOfMinesAround</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = -<span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">1</span>; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = -<span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">1</span>; j++) &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> ((i == j &amp;&amp; i == <span class="hljs-number">0</span>) || isOutOfBoundary(board, row + i, col + j)) <span class="hljs-keyword">continue</span>;</span><br><span class="line">                <span class="hljs-keyword">if</span> (board[row+i][col+j] == <span class="hljs-string">'M'</span>) result++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 判断是否越界</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOutOfBoundary</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> row &lt; <span class="hljs-number">0</span> || row &gt;= board.length || col &lt; <span class="hljs-number">0</span> || col &gt;= board[<span class="hljs-number">0</span>].length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">pyramidTransition</span><span class="hljs-params">(String bottom, List&lt;String&gt; allowed)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, List&lt;Character&gt;&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(); <span class="hljs-comment">// 可堆砌块的映射</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (String s : allowed) &#123;</span><br><span class="line">            String key = s.substring(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>);</span><br><span class="line">            List&lt;Character&gt; vals = map.getOrDefault(key, <span class="hljs-keyword">new</span> ArrayList&lt;Character&gt;());</span><br><span class="line">            vals.add(s.charAt(<span class="hljs-number">2</span>));</span><br><span class="line">            map.put(key, vals);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(bottom, map, <span class="hljs-string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(String bottom, Map&lt;String, List&lt;Character&gt;&gt; map, String path)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (bottom.length() == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;  <span class="hljs-comment">// 到达金字塔顶端，返回true</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (bottom.length() == path.length() + <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> dfs(path, map, <span class="hljs-string">""</span>);    <span class="hljs-comment">// 当前一个层完成，进入下一层</span></span><br><span class="line">        String key = bottom.substring(path.length(), path.length() + <span class="hljs-number">2</span>);</span><br><span class="line">        <span class="hljs-keyword">for</span> (Character c : map.getOrDefault(key, <span class="hljs-keyword">new</span> ArrayList&lt;Character&gt;())) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (dfs(bottom, map, path + c)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>; <span class="hljs-comment">// 递归遍历，每个砖块</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="广度优先遍历（Breadth-first-Search）"><a href="#广度优先遍历（Breadth-first-Search）" class="headerlink" title="广度优先遍历（Breadth-first-Search）"></a>广度优先遍历（Breadth-first-Search）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">char</span>[][] updateBoard(<span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">int</span>[] click) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> row = click[<span class="hljs-number">0</span>];</span><br><span class="line">        <span class="hljs-keyword">int</span> col = click[<span class="hljs-number">1</span>]; </span><br><span class="line">        <span class="hljs-keyword">if</span> (board[row][col] == <span class="hljs-string">'M'</span>) &#123;</span><br><span class="line">            <span class="hljs-comment">// 踩雷直接返回</span></span><br><span class="line">            board[row][col] = <span class="hljs-string">'X'</span>;</span><br><span class="line">            <span class="hljs-keyword">return</span> board;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        Queue&lt;<span class="hljs-keyword">int</span>[]&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        queue.offer(click);</span><br><span class="line">        <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            click = queue.poll();</span><br><span class="line">            row = click[<span class="hljs-number">0</span>];</span><br><span class="line">            col = click[<span class="hljs-number">1</span>];</span><br><span class="line">            <span class="hljs-keyword">if</span> (isOutOfBoundary(board, row, col) || board[row][col] != <span class="hljs-string">'E'</span>) <span class="hljs-keyword">continue</span>;   <span class="hljs-comment">// 越界或已经遍历过</span></span><br><span class="line">            <span class="hljs-keyword">int</span> mines = getNumOfMinesAround(board, row, col);</span><br><span class="line">            <span class="hljs-keyword">if</span> (mines == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                <span class="hljs-comment">// 周围地雷数量为0，入队遍历</span></span><br><span class="line">                board[row][col] = <span class="hljs-string">'B'</span>;</span><br><span class="line">                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = -<span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">1</span>; i++) &#123;</span><br><span class="line">                    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = -<span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">1</span>; j++) &#123;</span><br><span class="line">                        queue.offer(<span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;row + i, col + j&#125;);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                board[row][col] = (<span class="hljs-keyword">char</span>)(<span class="hljs-string">'0'</span> + mines);</span><br><span class="line">            &#125;    </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> board;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 获取周围地雷数量</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getNumOfMinesAround</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = -<span class="hljs-number">1</span>; i &lt;= <span class="hljs-number">1</span>; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = -<span class="hljs-number">1</span>; j &lt;= <span class="hljs-number">1</span>; j++) &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> ((i == j &amp;&amp; i == <span class="hljs-number">0</span>) || isOutOfBoundary(board, row + i, col + j)) <span class="hljs-keyword">continue</span>;</span><br><span class="line">                <span class="hljs-keyword">if</span> (board[row+i][col+j] == <span class="hljs-string">'M'</span>) result++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 判断是否越界</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isOutOfBoundary</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[][] board, <span class="hljs-keyword">int</span> row, <span class="hljs-keyword">int</span> col)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> row &lt; <span class="hljs-number">0</span> || row &gt;= board.length || col &lt; <span class="hljs-number">0</span> || col &gt;= board[<span class="hljs-number">0</span>].length;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="深度优先遍历-位运算（Depth-first-Search-Bit-Manipulation）"><a href="#深度优先遍历-位运算（Depth-first-Search-Bit-Manipulation）" class="headerlink" title="深度优先遍历+位运算（Depth-first-Search + Bit-Manipulation）"></a>深度优先遍历+位运算（Depth-first-Search + Bit-Manipulation）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> N = <span class="hljs-number">7</span>;  <span class="hljs-comment">// 题目里只有7中方块</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">pyramidTransition</span><span class="hljs-params">(String bottom, List&lt;String&gt; allowed)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[][] blocks = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N][N];</span><br><span class="line">        <span class="hljs-keyword">for</span> (String s : allowed) &#123;</span><br><span class="line">            blocks[s.charAt(<span class="hljs-number">0</span>) - <span class="hljs-string">'A'</span>][s.charAt(<span class="hljs-number">1</span>) - <span class="hljs-string">'A'</span>] |= (<span class="hljs-number">1</span> &lt;&lt; (s.charAt(<span class="hljs-number">2</span>) - <span class="hljs-string">'A'</span>)); <span class="hljs-comment">// 类似上一解法中的map</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">int</span>[][] pyramids = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[bottom.length()][];</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; bottom.length(); i++) &#123;</span><br><span class="line">            pyramids[i] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[bottom.length() - i]; <span class="hljs-comment">// 第i层砖块长度</span></span><br><span class="line">            pyramids[<span class="hljs-number">0</span>][i] = bottom.charAt(i) - <span class="hljs-string">'A'</span>; <span class="hljs-comment">// 初始层砖块</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(pyramids, blocks, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] pyramids, <span class="hljs-keyword">int</span>[][] blocks, <span class="hljs-keyword">int</span> level, <span class="hljs-keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (level == pyramids.length) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;  <span class="hljs-comment">// 金字塔构建完成</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (pos == pyramids[level].length) <span class="hljs-keyword">return</span> dfs(pyramids, blocks, level + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);  <span class="hljs-comment">// 进入下一层</span></span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">int</span> mask = blocks[pyramids[level - <span class="hljs-number">1</span>][pos]][pyramids[level - <span class="hljs-number">1</span>][pos + <span class="hljs-number">1</span>]];  <span class="hljs-comment">// 当前两个砖块可以堆叠的全部可能性</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> ((mask &amp; (<span class="hljs-number">1</span> &lt;&lt; i)) != <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                pyramids[level][pos] = i;</span><br><span class="line">                <span class="hljs-keyword">if</span> (dfs(pyramids, blocks, level, pos + <span class="hljs-number">1</span>)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Bit-Manipulation/">Bit-Manipulation</a>, <a class="has-link-grey -link" href="/tags/Depth-first-Search/">Depth-first-Search</a>
+                </div>
+            </div>
         </div>
         
         
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
         
     </div>
 </div>
 
 
 
+<div class="card">
+    <div class="card-content">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
+                
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
+                
+                
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
+                
+        </div>
+    </div>
+</div>
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/07/27/friend-circles/">
+                <span class="level-item">friend-circles</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2019/08/03/pyramid-transition-matrix/',
+		owner: 'butalso',
+		repo: 'butalso.github.io',
+		oauth: {
+			client_id: '10614b9a41e2306fb429',
+			client_secret: 'c30405372cae3f552faa85d9a53f4703b4997408',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+    </div>
+</div>
 </div>
                 
 
@@ -760,7 +825,7 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="butalso" height="28">
+                    <img src="/images/logo.svg" alt="pyramid-transition-matrix" height="28">
                 
                 </a>
                 <p class="is-size-7">

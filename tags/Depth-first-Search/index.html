@@ -153,6 +153,58 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 717 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/08/03/pyramid-transition-matrix/">pyramid-transition-matrix</a>
+            
+        </h1>
+        <div class="content">
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/pyramid-transition-matrix/" target="_blank" rel="noopener">pyramid-transition-matrix</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>现在，我们用一些方块来堆砌一个金字塔。 每个方块用仅包含一个字母的字符串表示，例如 “Z”。使用三元组表示金字塔的堆砌规则如下：(A, B, C) 表示，“C”为顶层方块，方块“A”、“B”分别作为方块“C”下一层的的左、右子块。当且仅当(A, B, C)是被允许的三元组，我们才可以将其堆砌上。初始时，给定金字塔的基层 bottom，用一个字符串表示。一个允许的三元组列表 allowed，每个三元组用一个长度为 3 的字符串表示。如果可以由基层一直堆到塔尖返回true，否则返回false。</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>首先，看完题目，我们可以很清楚的知道，我们需要将每层的各种可能性组合起来，然后不断往金字塔顶部迭代（递归），找到一种可能性。</li>
+<li>由于每层的方块数都不一致，因此，我们不能以层作为递归条件，而且，可能有好多层，for循环次数不一致。应该以每个块作为递归条件，在每次递归中，再加以判断是不是应该换层。</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">pyramidTransition</span><span class="hljs-params">(String bottom, List&lt;String&gt; allowed)</span> </span>&#123;</span><br><span class="line">        Map&lt;String, List&lt;Character&gt;&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(); <span class="hljs-comment">// 可堆砌块的映射</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (String s : allowed) &#123;</span><br><span class="line">            String key = s.substring(<span class="hljs-number">0</span>, <span class="hljs-number">2</span>);</span><br><span class="line">            List&lt;Character&gt; vals = map.getOrDefault(key, <span class="hljs-keyword">new</span> ArrayList&lt;Character&gt;());</span><br><span class="line">            vals.add(s.charAt(<span class="hljs-number">2</span>));</span><br><span class="line">            map.put(key, vals);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(bottom, map, <span class="hljs-string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(String bottom, Map&lt;String, List&lt;Character&gt;&gt; map, String path)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (bottom.length() == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;  <span class="hljs-comment">// 到达金字塔顶端，返回true</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (bottom.length() == path.length() + <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> dfs(path, map, <span class="hljs-string">""</span>);    <span class="hljs-comment">// 当前一个层完成，进入下一层</span></span><br><span class="line">        String key = bottom.substring(path.length(), path.length() + <span class="hljs-number">2</span>);</span><br><span class="line">        <span class="hljs-keyword">for</span> (Character c : map.getOrDefault(key, <span class="hljs-keyword">new</span> ArrayList&lt;Character&gt;())) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (dfs(bottom, map, path + c)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>; <span class="hljs-comment">// 递归遍历，每个砖块</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深度优先遍历-位运算（Depth-first-Search-Bit-Manipulation）"><a href="#深度优先遍历-位运算（Depth-first-Search-Bit-Manipulation）" class="headerlink" title="深度优先遍历+位运算（Depth-first-Search + Bit-Manipulation）"></a>深度优先遍历+位运算（Depth-first-Search + Bit-Manipulation）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> N = <span class="hljs-number">7</span>;  <span class="hljs-comment">// 题目里只有7中方块</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">pyramidTransition</span><span class="hljs-params">(String bottom, List&lt;String&gt; allowed)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[][] blocks = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N][N];</span><br><span class="line">        <span class="hljs-keyword">for</span> (String s : allowed) &#123;</span><br><span class="line">            blocks[s.charAt(<span class="hljs-number">0</span>) - <span class="hljs-string">'A'</span>][s.charAt(<span class="hljs-number">1</span>) - <span class="hljs-string">'A'</span>] |= (<span class="hljs-number">1</span> &lt;&lt; (s.charAt(<span class="hljs-number">2</span>) - <span class="hljs-string">'A'</span>)); <span class="hljs-comment">// 类似上一解法中的map</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">int</span>[][] pyramids = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[bottom.length()][];</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; bottom.length(); i++) &#123;</span><br><span class="line">            pyramids[i] = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[bottom.length() - i]; <span class="hljs-comment">// 第i层砖块长度</span></span><br><span class="line">            pyramids[<span class="hljs-number">0</span>][i] = bottom.charAt(i) - <span class="hljs-string">'A'</span>; <span class="hljs-comment">// 初始层砖块</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(pyramids, blocks, <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] pyramids, <span class="hljs-keyword">int</span>[][] blocks, <span class="hljs-keyword">int</span> level, <span class="hljs-keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (level == pyramids.length) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;  <span class="hljs-comment">// 金字塔构建完成</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (pos == pyramids[level].length) <span class="hljs-keyword">return</span> dfs(pyramids, blocks, level + <span class="hljs-number">1</span>, <span class="hljs-number">0</span>);  <span class="hljs-comment">// 进入下一层</span></span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">int</span> mask = blocks[pyramids[level - <span class="hljs-number">1</span>][pos]][pyramids[level - <span class="hljs-number">1</span>][pos + <span class="hljs-number">1</span>]];  <span class="hljs-comment">// 当前两个砖块可以堆叠的全部可能性</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> ((mask &amp; (<span class="hljs-number">1</span> &lt;&lt; i)) != <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                pyramids[level][pos] = i;</span><br><span class="line">                <span class="hljs-keyword">if</span> (dfs(pyramids, blocks, level, pos + <span class="hljs-number">1</span>)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-07-27T04:42:01.000Z">2019-07-27</time>
                 
                 <div class="level-item">
@@ -542,7 +594,7 @@ var _hmt = _hmt || [];
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        6
+                        7
                     </p>
                 </div>
             </div>
@@ -562,7 +614,7 @@ var _hmt = _hmt || [];
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        6
                     </p>
                 </div>
             </div>
@@ -592,7 +644,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">leetcode</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/leetcode/Medium/">
@@ -600,7 +652,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">Medium</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">6</span>
+                <span class="level-item tag">7</span>
             </span>
         </a></li></ul></li>
             </ul>
@@ -614,7 +666,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Breadth-first-Search/" style="font-size: 10px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 15px;">Union-Find</a>
+        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 10px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 15px;">Union-Find</a>
     </div>
 </div>
 
@@ -628,6 +680,25 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/08/03/pyramid-transition-matrix/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pyramid-transition-matrix">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time></div>
+                    <a href="/2019/08/03/pyramid-transition-matrix/" class="has-link-black-ter is-size-6">pyramid-transition-matrix</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -705,25 +776,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/01/regions-cut-by-slashes/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/2019/07/01/regions-cut-by-slashes/region.png" alt="由斜杠划分区域">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-01T03:20:37.000Z">2019-07-01</time></div>
-                    <a href="/2019/07/01/regions-cut-by-slashes/" class="has-link-black-ter is-size-6">由斜杠划分区域</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -735,6 +787,17 @@ var _hmt = _hmt || [];
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -772,6 +835,13 @@ var _hmt = _hmt || [];
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Bit-Manipulation/">
+                        <span class="tag">Bit-Manipulation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/Breadth-first-Search/">
                         <span class="tag">Breadth-first-Search</span>
                         <span class="tag is-grey">1</span>
@@ -781,7 +851,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">6</span>
+                        <span class="tag is-grey">7</span>
                     </a>
                 </div>
                 
@@ -831,6 +901,25 @@ var _hmt = _hmt || [];
         
         <article class="media">
             
+            <a href="/2019/08/03/pyramid-transition-matrix/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pyramid-transition-matrix">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time></div>
+                    <a href="/2019/08/03/pyramid-transition-matrix/" class="has-link-black-ter is-size-6">pyramid-transition-matrix</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/07/27/friend-circles/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="friend-circles">
@@ -905,25 +994,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/01/regions-cut-by-slashes/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/2019/07/01/regions-cut-by-slashes/region.png" alt="由斜杠划分区域">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-01T03:20:37.000Z">2019-07-01</time></div>
-                    <a href="/2019/07/01/regions-cut-by-slashes/" class="has-link-black-ter is-size-6">由斜杠划分区域</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -935,6 +1005,17 @@ var _hmt = _hmt || [];
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/08/">
+                <span class="level-start">
+                    <span class="level-item">八月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/07/">
@@ -972,6 +1053,13 @@ var _hmt = _hmt || [];
             <div class="field is-grouped is-grouped-multiline">
                 
                 <div class="control">
+                    <a class="tags has-addons" href="/tags/Bit-Manipulation/">
+                        <span class="tag">Bit-Manipulation</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
                     <a class="tags has-addons" href="/tags/Breadth-first-Search/">
                         <span class="tag">Breadth-first-Search</span>
                         <span class="tag is-grey">1</span>
@@ -981,7 +1069,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">6</span>
+                        <span class="tag is-grey">7</span>
                     </a>
                 </div>
                 
