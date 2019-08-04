@@ -153,6 +153,68 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-04T03:48:23.000Z">2019-08-04</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 992 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/08/04/shopping-offers/">shopping-offers</a>
+            
+        </h1>
+        <div class="content">
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/shopping-offers/" target="_blank" rel="noopener">shopping-offers</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在LeetCode商店中， 有许多在售的物品。然而，也有一些大礼包，每个大礼包以优惠的价格捆绑销售一组物品。现给定每个物品的价格，每个大礼包包含物品的清单，以及待购物品清单。请输出确切完成待购清单的最低花费。每个大礼包的由一个数组中的一组数据描述，最后一个数字代表大礼包的价格，其他数字分别表示内含的其他种类物品的数量。任意大礼包可无限次购买。</p>
+<p>说明:</p>
+<ol>
+<li>最多6种物品， 100种大礼包。</li>
+<li>每种物品，你最多只需要购买6个。</li>
+<li>你不可以购买超出待购清单的物品，即使更便宜。</li>
+</ol>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>首先，改题目明显具有最有子结构的特征，因此可以采用动态规划算法。</li>
+<li>最优值，如果采用深搜，明显具有可以剪枝特征。</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">shoppingOffers</span><span class="hljs-params">(List &lt; Integer &gt; price, List &lt; List &lt; Integer &gt;&gt; special, List &lt; Integer &gt; needs)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(price, special, needs, <span class="hljs-number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(List &lt; Integer &gt; price, List &lt; List &lt; Integer &gt;&gt; special, List &lt; Integer &gt; needs, <span class="hljs-keyword">int</span> offerIndex)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (offerIndex == special.size()) &#123;</span><br><span class="line">            <span class="hljs-comment">// 不采用套餐</span></span><br><span class="line">            <span class="hljs-keyword">int</span> cost = <span class="hljs-number">0</span>;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) cost += price.get(i) * needs.get(i);</span><br><span class="line">            <span class="hljs-keyword">return</span> cost;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">int</span> cost = Integer.MAX_VALUE;</span><br><span class="line">        <span class="hljs-comment">// 采用当前套餐</span></span><br><span class="line">        List&lt;Integer&gt; offer = special.get(offerIndex);</span><br><span class="line">        <span class="hljs-keyword">if</span> (check(offer, needs)) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">                needs.set(i, needs.get(i) - offer.get(i));</span><br><span class="line">            &#125;</span><br><span class="line">            cost = Math.min(cost, </span><br><span class="line">                            offer.get(price.size()) + dfs(price, special, needs, offerIndex));     <span class="hljs-comment">// 继续采用当前套餐</span></span><br><span class="line">            cost = Math.min(cost,</span><br><span class="line">                            offer.get(price.size()) + dfs(price, special, needs, offerIndex + <span class="hljs-number">1</span>)); <span class="hljs-comment">// 采用下一个套餐</span></span><br><span class="line">            <span class="hljs-comment">// 将当前需要商品数还原</span></span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">                needs.set(i, needs.get(i) + offer.get(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">// 不采用当前套餐</span></span><br><span class="line">        cost = Math.min(cost,</span><br><span class="line">                        dfs(price, special, needs, offerIndex + <span class="hljs-number">1</span>));</span><br><span class="line">        <span class="hljs-keyword">return</span> cost;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 检验当前套餐是否可用</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(List&lt;Integer&gt; offer, List&lt;Integer&gt; needs)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (offer.get(i) &gt; needs.get(i)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深度优先遍历-剪枝（Depth-first-Search-Pruning）"><a href="#深度优先遍历-剪枝（Depth-first-Search-Pruning）" class="headerlink" title="深度优先遍历+剪枝（Depth-first-Search+Pruning）"></a>深度优先遍历+剪枝（Depth-first-Search+Pruning）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> total = Integer.MAX_VALUE;  <span class="hljs-comment">// 总花费</span></span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">shoppingOffers</span><span class="hljs-params">(List&lt;Integer&gt; price, List&lt;List&lt;Integer&gt;&gt; special, List&lt;Integer&gt; needs)</span> </span>&#123;</span><br><span class="line">        dfs(price, special, needs, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>);</span><br><span class="line">        <span class="hljs-keyword">return</span> total;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(List&lt;Integer&gt; price, List&lt;List&lt;Integer&gt;&gt; special, List&lt;Integer&gt; needs, <span class="hljs-keyword">int</span> offerIndex, <span class="hljs-keyword">int</span> cost)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (cost &gt;= total) <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 剪枝</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (offerIndex == special.size()) &#123;</span><br><span class="line">            <span class="hljs-comment">// 不采用套餐</span></span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) cost += price.get(i) * needs.get(i);</span><br><span class="line">            total = Math.min(total, cost);</span><br><span class="line">            <span class="hljs-keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 采用当前套餐</span></span><br><span class="line">        List&lt;Integer&gt; offer = special.get(offerIndex);</span><br><span class="line">        <span class="hljs-keyword">if</span> (check(offer, needs)) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">                needs.set(i, needs.get(i) - offer.get(i));</span><br><span class="line">            &#125;</span><br><span class="line">            dfs(price, special, needs, offerIndex, cost + offer.get(price.size()));     <span class="hljs-comment">// 继续采用当前套餐</span></span><br><span class="line">            dfs(price, special, needs, offerIndex + <span class="hljs-number">1</span>, cost + offer.get(price.size())); <span class="hljs-comment">// 采用下一个套餐</span></span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">                needs.set(i, needs.get(i) + offer.get(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 不采用当前套餐</span></span><br><span class="line">        dfs(price, special, needs, offerIndex + <span class="hljs-number">1</span>, cost);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 检验当前套餐是否可用</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(List&lt;Integer&gt; offer, List&lt;Integer&gt; needs)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (offer.get(i) &gt; needs.get(i)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="动态规划（Dynamic-Programming）"><a href="#动态规划（Dynamic-Programming）" class="headerlink" title="动态规划（Dynamic-Programming）"></a>动态规划（Dynamic-Programming）</h2><h3 id="代码-2"><a href="#代码-2" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">shoppingOffers</span><span class="hljs-params">(List&lt;Integer&gt; price, List&lt;List&lt;Integer&gt;&gt; special, List&lt;Integer&gt; needs)</span> </span>&#123;</span><br><span class="line">        Map&lt;Integer, Integer&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        map.put(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>);</span><br><span class="line">        dp(price, special, needs, map);</span><br><span class="line">        <span class="hljs-keyword">int</span> key = hashcode(needs);</span><br><span class="line">        <span class="hljs-keyword">return</span> map.get(key);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dp</span><span class="hljs-params">(List&lt;Integer&gt; price, List&lt;List&lt;Integer&gt;&gt; special, List&lt;Integer&gt; needs, Map&lt;Integer, Integer&gt; map)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> code = hashcode(needs);</span><br><span class="line">        <span class="hljs-keyword">if</span> (map.get(code) != <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span>;  <span class="hljs-comment">// 已被解决的子问题，剪枝</span></span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-comment">// 不采用套餐</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">            result += price.get(i) * needs.get(i);</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">for</span> (List&lt;Integer&gt; offer : special) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (check(offer, needs)) &#123;</span><br><span class="line">                List&lt;Integer&gt; temp = <span class="hljs-keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) temp.add(needs.get(i) - offer.get(i));</span><br><span class="line">                dp(price, special, temp, map);</span><br><span class="line">                result = Math.min(result, map.get(hashcode(temp)) + offer.get(price.size()));       <span class="hljs-comment">// 此时，子问题一定已经被解决，直接从map中获取</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        map.put(code, result);  <span class="hljs-comment">// 将当前最优解放入map中</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 检验当前套餐是否可用</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">check</span><span class="hljs-params">(List&lt;Integer&gt; offer, List&lt;Integer&gt; needs)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; needs.size(); i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (offer.get(i) &gt; needs.get(i)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 将当前需要转化成一个hash值，因为说明最多买6中商品</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">hashcode</span><span class="hljs-params">(List&lt;Integer&gt; needs)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> need : needs) result = result * <span class="hljs-number">6</span> + need;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time>
                 
                 <div class="level-item">
@@ -594,7 +656,7 @@ var _hmt = _hmt || [];
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        7
+                        8
                     </p>
                 </div>
             </div>
@@ -614,7 +676,7 @@ var _hmt = _hmt || [];
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        6
+                        7
                     </p>
                 </div>
             </div>
@@ -644,7 +706,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">leetcode</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/leetcode/Medium/">
@@ -652,7 +714,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">Medium</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a></li></ul></li>
             </ul>
@@ -666,7 +728,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 10px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 15px;">Union-Find</a>
+        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 10px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic-Programming</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 10px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 15px;">Union-Find</a>
     </div>
 </div>
 
@@ -680,6 +742,25 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/08/04/shopping-offers/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="shopping-offers">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-04T03:48:23.000Z">2019-08-04</time></div>
+                    <a href="/2019/08/04/shopping-offers/" class="has-link-black-ter is-size-6">shopping-offers</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -757,25 +838,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/06/number-of-enclaves/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="飞地的数量">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-06T08:04:13.000Z">2019-07-06</time></div>
-                    <a href="/2019/07/06/number-of-enclaves/" class="has-link-black-ter is-size-6">飞地的数量</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -794,7 +856,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -851,7 +913,14 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Dynamic-Programming/">
+                        <span class="tag">Dynamic-Programming</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -901,6 +970,25 @@ var _hmt = _hmt || [];
         
         <article class="media">
             
+            <a href="/2019/08/04/shopping-offers/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="shopping-offers">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-04T03:48:23.000Z">2019-08-04</time></div>
+                    <a href="/2019/08/04/shopping-offers/" class="has-link-black-ter is-size-6">shopping-offers</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/03/pyramid-transition-matrix/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="pyramid-transition-matrix">
@@ -975,25 +1063,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/06/number-of-enclaves/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="飞地的数量">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-06T08:04:13.000Z">2019-07-06</time></div>
-                    <a href="/2019/07/06/number-of-enclaves/" class="has-link-black-ter is-size-6">飞地的数量</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1012,7 +1081,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1069,7 +1138,14 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">7</span>
+                        <span class="tag is-grey">8</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Dynamic-Programming/">
+                        <span class="tag">Dynamic-Programming</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
