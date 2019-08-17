@@ -2,20 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>归档: 2019 - butalso</title>
+<title>loud-and-rich - butalso</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="keywords" content="blogs">
-<meta property="og:type" content="website">
-<meta property="og:title" content="butalso">
-<meta property="og:url" content="https://butalso.github.io/archives/2019/index.html">
+    <meta name="description" content="题目链接：loud-and-rich 题目描述在一组 N 个人（编号为 0, 1, 2, …, N-1）中，每个人都有不同数目的钱，以及不同程度的安静（quietness）。为了方便起见，我们将编号为 x 的人简称为 “person x “。如果能够肯定 person x 比 person y 更有钱的话，我们会说 richer[i] = [x, y] 。注意 richer 可能只是有效观察的一个">
+<meta name="keywords" content="Depth-first-Search">
+<meta property="og:type" content="article">
+<meta property="og:title" content="loud-and-rich">
+<meta property="og:url" content="https://butalso.github.io/2019/08/17/loud-and-rich/index.html">
 <meta property="og:site_name" content="butalso">
+<meta property="og:description" content="题目链接：loud-and-rich 题目描述在一组 N 个人（编号为 0, 1, 2, …, N-1）中，每个人都有不同数目的钱，以及不同程度的安静（quietness）。为了方便起见，我们将编号为 x 的人简称为 “person x “。如果能够肯定 person x 比 person y 更有钱的话，我们会说 richer[i] = [x, y] 。注意 richer 可能只是有效观察的一个">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://butalso.github.io/images/og_image.png">
+<meta property="og:updated_time" content="2019-08-17T05:56:35.888Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="butalso">
+<meta name="twitter:title" content="loud-and-rich">
+<meta name="twitter:description" content="题目链接：loud-and-rich 题目描述在一组 N 个人（编号为 0, 1, 2, …, N-1）中，每个人都有不同数目的钱，以及不同程度的安静（quietness）。为了方便起见，我们将编号为 x 的人简称为 “person x “。如果能够肯定 person x 比 person y 更有钱的话，我们会说 richer[i] = [x, y] 。注意 richer 可能只是有效观察的一个">
 <meta name="twitter:image" content="https://butalso.github.io/images/og_image.png">
 
 
@@ -100,7 +104,7 @@ var _hmt = _hmt || [];
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="butalso" height="28">
+                <img src="/images/logo.svg" alt="loud-and-rich" height="28">
             
             </a>
         </div>
@@ -136,234 +140,136 @@ var _hmt = _hmt || [];
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 765 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                loud-and-rich
+            
+        </h1>
+        <div class="content">
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">loud-and-rich</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在一组 N 个人（编号为 0, 1, 2, …, N-1）中，每个人都有不同数目的钱，以及不同程度的安静（quietness）。为了方便起见，我们将编号为 x 的人简称为 “person x “。如果能够肯定 person x 比 person y 更有钱的话，我们会说 richer[i] = [x, y] 。注意 richer 可能只是有效观察的一个子集。另外，如果 person x 的安静程度为 q ，我们会说 quiet[x] = q 。现在，返回答案 answer ，其中 answer[x] = y 的前提是，在所有拥有的钱不少于 person x 的人中，person y 是最安静的人（也就是安静值 quiet[y] 最小的人）</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>直观上看，对每个人，我们需要找出比他有钱或者和他一样有钱（他自己）的人，然后比较找出这些人（包括他自己）中最安静的一个作为结果。（解法1）</li>
+<li>事实上，在寻找结果过程中，我们没必要找出所有比他有钱的人，比如A比B有钱，C比A有钱，在查找过程中，对于B，我们没有必要同时比较A、B、C三个人的安静值，我们可以先比较A、C的安静值，将min(A, C)结果存起来，然后再比较min(min(A, C), B)的值，即得出比B有钱且最安静的人。（解法2）</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] loudAndRich(<span class="hljs-keyword">int</span>[][] richer, <span class="hljs-keyword">int</span>[] quiet) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = quiet.length; </span><br><span class="line">        Map&lt;Integer, Set&lt;Integer&gt;&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(); <span class="hljs-comment">// value值存的是比key值更有钱的人</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] r : richer) &#123;</span><br><span class="line">            Set&lt;Integer&gt; tmp = map.getOrDefault(r[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line">            tmp.add(r[<span class="hljs-number">0</span>]);</span><br><span class="line">            map.put(r[<span class="hljs-number">1</span>], tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-comment">// 遍历深搜，对每个人，找出比他更有钱的人</span></span><br><span class="line">            Set&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">            dfs(map, tmp, i);</span><br><span class="line">            map.put(i, tmp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">int</span>[] result = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N];</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-comment">// 比较，对每个人，从比他更有钱的人找出最安静的人</span></span><br><span class="line">            result[i] = i;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> p : map.get(i)) &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (quiet[result[i]] &gt; quiet[p])</span><br><span class="line">                    result[i] = p;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(Map&lt;Integer, Set&lt;Integer&gt;&gt; map, Set&lt;Integer&gt; cur, <span class="hljs-keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        Set&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(map.getOrDefault(j, <span class="hljs-keyword">new</span> HashSet&lt;&gt;()));</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> richer : tmp) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (!cur.contains(richer)) &#123;</span><br><span class="line">                cur.add(richer);</span><br><span class="line">                dfs(map, cur, richer);                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<div class="card widget">
+<h2 id="深度优先遍历（优化）（Depth-first-Search）"><a href="#深度优先遍历（优化）（Depth-first-Search）" class="headerlink" title="深度优先遍历（优化）（Depth-first-Search）"></a>深度优先遍历（优化）（Depth-first-Search）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph; <span class="hljs-comment">// 同解法1map,graph[i]表示比i更有钱的人（不完全集合）</span></span><br><span class="line">    <span class="hljs-keyword">int</span>[] result;</span><br><span class="line">    <span class="hljs-keyword">int</span>[] quiet;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] loudAndRich(<span class="hljs-keyword">int</span>[][] richer, <span class="hljs-keyword">int</span>[] quiet) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = quiet.length; </span><br><span class="line">        graph = <span class="hljs-keyword">new</span> ArrayList[N];</span><br><span class="line">        result = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N];</span><br><span class="line">        <span class="hljs-keyword">this</span>.quiet = quiet;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            graph[i] = <span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">            result[i] = -<span class="hljs-number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : richer) &#123;</span><br><span class="line">            graph[edge[<span class="hljs-number">1</span>]].add(edge[<span class="hljs-number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> node = <span class="hljs-number">0</span>; node &lt; N; node++) &#123;</span><br><span class="line">            dfs(node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 返回比node更有钱或同样有钱（包括他自己）的人中最安静的人的编号</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (result[node] == -<span class="hljs-number">1</span>) &#123;</span><br><span class="line">            result[node] = node;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> child : graph[node]) &#123;</span><br><span class="line">                <span class="hljs-keyword">int</span> cand = dfs(child);</span><br><span class="line">                <span class="hljs-keyword">if</span> (quiet[cand] &lt; quiet[result[node]]) &#123;</span><br><span class="line">                    result[node] = cand;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result[node];</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/Depth-first-Search/">Depth-first-Search</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        <div class="social-share"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js@1.0.16/dist/js/social-share.min.js"></script>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
     <div class="card-content">
-        <h3 class="tag is-link">
-        2019
-        </h3>
-        <div class="timeline">
-        
-            <article class="media">
+        <h3 class="menu-label has-text-centered">喜欢这篇文章？打赏一下作者吧</h3>
+        <div class="buttons is-centered">
+            
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time>
-                        <a href="/2019/08/17/loud-and-rich/" class="has-link-black-ter is-size-6">loud-and-rich</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+<a class="button is-info donate">
+    <span class="icon is-small">
+        <i class="fab fa-alipay"></i>
+    </span>
+    <span>支付宝</span>
+    <div class="qrcode"><img src="/images/alipay.jpg" alt="支付宝"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time>
-                        <a href="/2019/08/17/house-robber-iii/" class="has-link-black-ter is-size-6">house-robber-iii</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-10T03:36:22.000Z">2019-08-10</time>
-                        <a href="/2019/08/10/all-nodes-distance-k-in-binary-tree/" class="has-link-black-ter is-size-6">all-nodes-distance-k-in-binary-tree</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
+<a class="button is-success donate">
+    <span class="icon is-small">
+        <i class="fab fa-weixin"></i>
+    </span>
+    <span>微信</span>
+    <div class="qrcode"><img src="/images/wechat.png" alt="微信"></div>
+</a>
+
                 
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-04T03:48:23.000Z">2019-08-04</time>
-                        <a href="/2019/08/04/shopping-offers/" class="has-link-black-ter is-size-6">shopping-offers</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time>
-                        <a href="/2019/08/03/pyramid-transition-matrix/" class="has-link-black-ter is-size-6">pyramid-transition-matrix</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-27T04:42:01.000Z">2019-07-27</time>
-                        <a href="/2019/07/27/friend-circles/" class="has-link-black-ter is-size-6">friend-circles</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-27T04:27:36.000Z">2019-07-27</time>
-                        <a href="/2019/07/27/minesweeper/" class="has-link-black-ter is-size-6">minesweeper</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-13T04:15:51.000Z">2019-07-13</time>
-                        <a href="/2019/07/13/most-stones-removed-with-same-row-or-column/" class="has-link-black-ter is-size-6">移除最多的同行或同列石头</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-06T08:04:13.000Z">2019-07-06</time>
-                        <a href="/2019/07/06/number-of-enclaves/" class="has-link-black-ter is-size-6">飞地的数量</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
-            <article class="media">
-                
-                <a href="/2019/07/01/regions-cut-by-slashes/" class="media-left">
-                    <p class="image is-64x64">
-                        <img class="thumbnail" src="/2019/07/01/regions-cut-by-slashes/region.png" alt="由斜杠划分区域">
-                    </p>
-                </a>
-                
-                <div class="media-content">
-                    <div class="content">
-                        <time class="has-text-grey is-size-7 is-block is-uppercase" datetime="2019-07-01T03:20:37.000Z">2019-07-01</time>
-                        <a href="/2019/07/01/regions-cut-by-slashes/" class="has-link-black-ter is-size-6">由斜杠划分区域</a>
-                        <div class="level article-meta is-mobile">
-                            <div class="level-left">
-                                
-                                <div class="level-item is-size-7 is-uppercase">
-                                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                                </div>
-                                
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </article>
-        
         </div>
     </div>
 </div>
 
 
 
-    
 <div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/page/0/">上一页</a>
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/17/house-robber-iii/">
+                <span class="level-item">house-robber-iii</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="pagination-next">
-            <a class="is-flex-grow has-text-black-ter" href="/archives/2019/page/2/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link is-current" href="/archives/2019/">1</a></li>
-            
-            <li><a class="pagination-link has-text-black-ter" href="/archives/2019/page/2/">2</a></li>
-            
-        </ul>
-    </nav>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="comment-container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+	var gitment = new Gitment({
+		id: '2019/08/17/loud-and-rich/',
+		owner: 'butalso',
+		repo: 'butalso.github.io',
+		oauth: {
+			client_id: '10614b9a41e2306fb429',
+			client_secret: 'c30405372cae3f552faa85d9a53f4703b4997408',
+		},
+	})
+	gitment.render('comment-container')
+</script>
+
+    </div>
 </div>
 </div>
                 
@@ -935,7 +841,7 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="butalso" height="28">
+                    <img src="/images/logo.svg" alt="loud-and-rich" height="28">
                 
                 </a>
                 <p class="is-size-7">

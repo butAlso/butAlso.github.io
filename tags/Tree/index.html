@@ -153,6 +153,62 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 643 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/08/17/house-robber-iii/">house-robber-iii</a>
+            
+        </h1>
+        <div class="content">
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">house-robber-iii</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>不相邻的节点和最大值，让我们可以分成两种情况：</p>
+<ol>
+<li>该节点值 + 他的间接子树最大值的和</li>
+<li>他的直接子树最大值的和</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = root.val;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) result += dfs(root.left.left) + dfs(root.left.right);    <span class="hljs-comment">// 该节点左间接子树和最大值</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) result += dfs(root.right.left) + dfs(root.right.right); <span class="hljs-comment">// 该节点右间接子树和最大值</span></span><br><span class="line">        result = Math.max(result, dfs(root.left) + dfs(root.right));    <span class="hljs-comment">// 比较选择包含该节点还是不包含该节点的和最大值</span></span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深度优先遍历（优化）（Depth-first-Search）"><a href="#深度优先遍历（优化）（Depth-first-Search）" class="headerlink" title="深度优先遍历（优化）（Depth-first-Search）"></a>深度优先遍历（优化）（Depth-first-Search）</h2><p>在上一解法中，明显可以发现，我们在寻找当前树的最大值时，还需要寻找子树的子树最大值，而在寻找子树的最大值时，我们已经查找过了子树的子树的最大值，即有很多计算是重复的。因此，在深搜过程中，同时返回包含该节点和最大值和不包含该节点和最大值可以给我们运行时间上带来不少优化。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] result = dfs(root);</span><br><span class="line">        <span class="hljs-keyword">return</span> Math.max(result[<span class="hljs-number">0</span>], result[<span class="hljs-number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// [0] =&gt; 包含该节点的和最大值</span></span><br><span class="line">    <span class="hljs-comment">// [1] =&gt; 不包含该节点的和最大值</span></span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] dfs(TreeNode root) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = root.val;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] l = dfs(root.left);</span><br><span class="line">        <span class="hljs-keyword">int</span>[] r = dfs(root.right);</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[] &#123;</span><br><span class="line">            root.val + l[<span class="hljs-number">1</span>] + r[<span class="hljs-number">1</span>], Math.max(l[<span class="hljs-number">0</span>], l[<span class="hljs-number">1</span>]) + Math.max(r[<span class="hljs-number">0</span>], r[<span class="hljs-number">1</span>])</span><br><span class="line">            &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-08-10T03:36:22.000Z">2019-08-10</time>
                 
                 <div class="level-item">
@@ -299,7 +355,7 @@ var _hmt = _hmt || [];
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        9
+                        11
                     </p>
                 </div>
             </div>
@@ -349,7 +405,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">leetcode</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">9</span>
+                <span class="level-item tag">11</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/leetcode/Medium/">
@@ -357,7 +413,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">Medium</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">9</span>
+                <span class="level-item tag">11</span>
             </span>
         </a></li></ul></li>
             </ul>
@@ -371,7 +427,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 13.33px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic-Programming</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 13.33px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 16.67px;">Union-Find</a>
+        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 13.33px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic-Programming</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 16.67px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 16.67px;">Union-Find</a>
     </div>
 </div>
 
@@ -385,6 +441,44 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/08/17/loud-and-rich/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="loud-and-rich">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/loud-and-rich/" class="has-link-black-ter is-size-6">loud-and-rich</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/17/house-robber-iii/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="house-robber-iii">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/house-robber-iii/" class="has-link-black-ter is-size-6">house-robber-iii</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -443,44 +537,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/friend-circles/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="friend-circles">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:42:01.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/friend-circles/" class="has-link-black-ter is-size-6">friend-circles</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/27/minesweeper/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="minesweeper">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:27:36.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/minesweeper/" class="has-link-black-ter is-size-6">minesweeper</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -499,7 +555,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -556,7 +612,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">9</span>
+                        <span class="tag is-grey">11</span>
                     </a>
                 </div>
                 
@@ -577,7 +633,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Tree/">
                         <span class="tag">Tree</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -613,6 +669,44 @@ var _hmt = _hmt || [];
         
         <article class="media">
             
+            <a href="/2019/08/17/loud-and-rich/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="loud-and-rich">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/loud-and-rich/" class="has-link-black-ter is-size-6">loud-and-rich</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/17/house-robber-iii/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="house-robber-iii">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/house-robber-iii/" class="has-link-black-ter is-size-6">house-robber-iii</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/10/all-nodes-distance-k-in-binary-tree/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="all-nodes-distance-k-in-binary-tree">
@@ -668,44 +762,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/friend-circles/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="friend-circles">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:42:01.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/friend-circles/" class="has-link-black-ter is-size-6">friend-circles</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/27/minesweeper/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="minesweeper">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:27:36.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/minesweeper/" class="has-link-black-ter is-size-6">minesweeper</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -724,7 +780,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -781,7 +837,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">9</span>
+                        <span class="tag is-grey">11</span>
                     </a>
                 </div>
                 
@@ -802,7 +858,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Tree/">
                         <span class="tag">Tree</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 

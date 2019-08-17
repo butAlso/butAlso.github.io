@@ -153,6 +153,116 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 765 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/08/17/loud-and-rich/">loud-and-rich</a>
+            
+        </h1>
+        <div class="content">
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">loud-and-rich</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在一组 N 个人（编号为 0, 1, 2, …, N-1）中，每个人都有不同数目的钱，以及不同程度的安静（quietness）。为了方便起见，我们将编号为 x 的人简称为 “person x “。如果能够肯定 person x 比 person y 更有钱的话，我们会说 richer[i] = [x, y] 。注意 richer 可能只是有效观察的一个子集。另外，如果 person x 的安静程度为 q ，我们会说 quiet[x] = q 。现在，返回答案 answer ，其中 answer[x] = y 的前提是，在所有拥有的钱不少于 person x 的人中，person y 是最安静的人（也就是安静值 quiet[y] 最小的人）</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
+<li>直观上看，对每个人，我们需要找出比他有钱或者和他一样有钱（他自己）的人，然后比较找出这些人（包括他自己）中最安静的一个作为结果。（解法1）</li>
+<li>事实上，在寻找结果过程中，我们没必要找出所有比他有钱的人，比如A比B有钱，C比A有钱，在查找过程中，对于B，我们没有必要同时比较A、B、C三个人的安静值，我们可以先比较A、C的安静值，将min(A, C)结果存起来，然后再比较min(min(A, C), B)的值，即得出比B有钱且最安静的人。（解法2）</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] loudAndRich(<span class="hljs-keyword">int</span>[][] richer, <span class="hljs-keyword">int</span>[] quiet) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = quiet.length; </span><br><span class="line">        Map&lt;Integer, Set&lt;Integer&gt;&gt; map = <span class="hljs-keyword">new</span> HashMap&lt;&gt;(); <span class="hljs-comment">// value值存的是比key值更有钱的人</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] r : richer) &#123;</span><br><span class="line">            Set&lt;Integer&gt; tmp = map.getOrDefault(r[<span class="hljs-number">1</span>], <span class="hljs-keyword">new</span> HashSet&lt;&gt;());</span><br><span class="line">            tmp.add(r[<span class="hljs-number">0</span>]);</span><br><span class="line">            map.put(r[<span class="hljs-number">1</span>], tmp);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-comment">// 遍历深搜，对每个人，找出比他更有钱的人</span></span><br><span class="line">            Set&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> HashSet&lt;&gt;();</span><br><span class="line">            dfs(map, tmp, i);</span><br><span class="line">            map.put(i, tmp);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-keyword">int</span>[] result = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N];</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            <span class="hljs-comment">// 比较，对每个人，从比他更有钱的人找出最安静的人</span></span><br><span class="line">            result[i] = i;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> p : map.get(i)) &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (quiet[result[i]] &gt; quiet[p])</span><br><span class="line">                    result[i] = p;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">dfs</span><span class="hljs-params">(Map&lt;Integer, Set&lt;Integer&gt;&gt; map, Set&lt;Integer&gt; cur, <span class="hljs-keyword">int</span> j)</span> </span>&#123;</span><br><span class="line">        Set&lt;Integer&gt; tmp = <span class="hljs-keyword">new</span> HashSet&lt;&gt;(map.getOrDefault(j, <span class="hljs-keyword">new</span> HashSet&lt;&gt;()));</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> richer : tmp) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (!cur.contains(richer)) &#123;</span><br><span class="line">                cur.add(richer);</span><br><span class="line">                dfs(map, cur, richer);                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深度优先遍历（优化）（Depth-first-Search）"><a href="#深度优先遍历（优化）（Depth-first-Search）" class="headerlink" title="深度优先遍历（优化）（Depth-first-Search）"></a>深度优先遍历（优化）（Depth-first-Search）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    List&lt;Integer&gt;[] graph; <span class="hljs-comment">// 同解法1map,graph[i]表示比i更有钱的人（不完全集合）</span></span><br><span class="line">    <span class="hljs-keyword">int</span>[] result;</span><br><span class="line">    <span class="hljs-keyword">int</span>[] quiet;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] loudAndRich(<span class="hljs-keyword">int</span>[][] richer, <span class="hljs-keyword">int</span>[] quiet) &#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = quiet.length; </span><br><span class="line">        graph = <span class="hljs-keyword">new</span> ArrayList[N];</span><br><span class="line">        result = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N];</span><br><span class="line">        <span class="hljs-keyword">this</span>.quiet = quiet;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; N; i++) &#123;</span><br><span class="line">            graph[i] = <span class="hljs-keyword">new</span> ArrayList&lt;Integer&gt;();</span><br><span class="line">            result[i] = -<span class="hljs-number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span>[] edge : richer) &#123;</span><br><span class="line">            graph[edge[<span class="hljs-number">1</span>]].add(edge[<span class="hljs-number">0</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> node = <span class="hljs-number">0</span>; node &lt; N; node++) &#123;</span><br><span class="line">            dfs(node);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 返回比node更有钱或同样有钱（包括他自己）的人中最安静的人的编号</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (result[node] == -<span class="hljs-number">1</span>) &#123;</span><br><span class="line">            result[node] = node;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> child : graph[node]) &#123;</span><br><span class="line">                <span class="hljs-keyword">int</span> cand = dfs(child);</span><br><span class="line">                <span class="hljs-keyword">if</span> (quiet[cand] &lt; quiet[result[node]]) &#123;</span><br><span class="line">                    result[node] = cand;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result[node];</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    4 分钟 读完 (大约 643 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/08/17/house-robber-iii/">house-robber-iii</a>
+            
+        </h1>
+        <div class="content">
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">house-robber-iii</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>不相邻的节点和最大值，让我们可以分成两种情况：</p>
+<ol>
+<li>该节点值 + 他的间接子树最大值的和</li>
+<li>他的直接子树最大值的和</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = root.val;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) result += dfs(root.left.left) + dfs(root.left.right);    <span class="hljs-comment">// 该节点左间接子树和最大值</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) result += dfs(root.right.left) + dfs(root.right.right); <span class="hljs-comment">// 该节点右间接子树和最大值</span></span><br><span class="line">        result = Math.max(result, dfs(root.left) + dfs(root.right));    <span class="hljs-comment">// 比较选择包含该节点还是不包含该节点的和最大值</span></span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深度优先遍历（优化）（Depth-first-Search）"><a href="#深度优先遍历（优化）（Depth-first-Search）" class="headerlink" title="深度优先遍历（优化）（Depth-first-Search）"></a>深度优先遍历（优化）（Depth-first-Search）</h2><p>在上一解法中，明显可以发现，我们在寻找当前树的最大值时，还需要寻找子树的子树最大值，而在寻找子树的最大值时，我们已经查找过了子树的子树的最大值，即有很多计算是重复的。因此，在深搜过程中，同时返回包含该节点和最大值和不包含该节点和最大值可以给我们运行时间上带来不少优化。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] result = dfs(root);</span><br><span class="line">        <span class="hljs-keyword">return</span> Math.max(result[<span class="hljs-number">0</span>], result[<span class="hljs-number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// [0] =&gt; 包含该节点的和最大值</span></span><br><span class="line">    <span class="hljs-comment">// [1] =&gt; 不包含该节点的和最大值</span></span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] dfs(TreeNode root) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = root.val;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] l = dfs(root.left);</span><br><span class="line">        <span class="hljs-keyword">int</span>[] r = dfs(root.right);</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[] &#123;</span><br><span class="line">            root.val + l[<span class="hljs-number">1</span>] + r[<span class="hljs-number">1</span>], Math.max(l[<span class="hljs-number">0</span>], l[<span class="hljs-number">1</span>]) + Math.max(r[<span class="hljs-number">0</span>], r[<span class="hljs-number">1</span>])</span><br><span class="line">            &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-08-10T03:36:22.000Z">2019-08-10</time>
                 
                 <div class="level-item">
@@ -608,67 +718,25 @@ var _hmt = _hmt || [];
 
 
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/06/29/distribute-coins-in-binary-tree/" class="image is-7by1">
-            <img class="thumbnail" src="/2019/06/29/distribute-coins-in-binary-tree/tree1.png" alt="在二叉树中分配硬币">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-06-29T05:39:47.000Z">2019-06-29</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    7 分钟 读完 (大约 998 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/06/29/distribute-coins-in-binary-tree/">在二叉树中分配硬币</a>
-            
-        </h1>
-        <div class="content">
-            <p>题目链接：<a href="https://leetcode-cn.com/problems/distribute-coins-in-binary-tree/" target="_blank" rel="noopener">distribute-coins-in-binary-tree</a></p>
-<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>给定一个有 N 个结点的二叉树的根结点 root，树中的每个结点上都对应有 node.val 枚硬币，并且总共有 N 枚硬币。在一次移动中，我们可以选择两个相邻的结点，然后将一枚硬币从其中一个结点移动到另一个结点。(移动可以是从父结点到子结点，或者从子结点移动到父结点。)。返回使每个结点上只有一枚硬币所需的移动次数。</p>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>要使得硬币移动次数最少，我们应该把结点中多余的硬币移到离它最近且需要硬币的结点上。</li>
-<li>由于是在二叉树上移动，则硬币移动轨迹一定是从某结点移动到他的父节点或者子节点上。</li>
-<li>从需要硬币的结点到有多余硬币的结点的距离等于从有多余硬币结点的距离到需要硬币的结点的距离。</li>
-<li>一个结点可能有两个子节点，因此，如果该结点需要硬币或者有多余的硬币，我们无法一下子确定该硬币应该从左子节点还是右子节点获得或者移向左子节点还是右子节点；而一个结点一定只有一个父节点，因此，如果该结点需要硬币或者有多余的硬币，移动轨迹一定会经过他的父节点。</li>
-</ol>
-<h1 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h1><p>采用深度搜索优先的思路，从树的叶子节点出发，如果该结点（设为cur）需要硬币，则从他的父节点获得，如果该结点有多余的硬币，则多余的硬币全部移动向他的父节点。即该结点的初始值为cur.val,从该结点递归到他的父节点，移动次数增加Math.abs(cur.val - 1)。该结点cur.val变为期待的1，如果该结点的值cur.val &gt; 1，则他的父节点的的值cur.parent.val = cur.parent.val + cur.val - 1;如果该结点的值cur.val &lt;= 1,则他的父节点的的值cur.parent.val = cur.parent.val - (-cur.val + 1)。逐步递归，直到遍历完整棵树，则可得出结果。</p>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><h2 id="解法一"><a href="#解法一" class="headerlink" title="解法一"></a>解法一</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span> moves = <span class="hljs-number">0</span>;      <span class="hljs-comment">// 记录移动次数</span></span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">distributeCoins</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        dfs(root);</span><br><span class="line">        <span class="hljs-keyword">return</span> moves;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 该方法返回值为移动完成后结点cur拥有多余的或者缺少的硬币数量，即cur.val - 1。</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode cur)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (cur == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">int</span> l = dfs(cur.left);</span><br><span class="line">        <span class="hljs-keyword">int</span> r = dfs(cur.right);</span><br><span class="line">        moves += Math.abs(l) + Math.abs(r);         <span class="hljs-comment">// 总结果加上左右子节点硬币流向父节点或从父节点移动过去需要的次数</span></span><br><span class="line">        <span class="hljs-keyword">return</span> cur.val + l + r - <span class="hljs-number">1</span>;         <span class="hljs-comment">// 当前结点缺少的的或者多余的硬币数量</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="解法二"><a href="#解法二" class="headerlink" title="解法二"></a>解法二</h2><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">distributeCoins</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(root, <span class="hljs-keyword">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 该方法返回值为移动好当前结点（包括他的子节点，即当前结点表示的树）需要的移动次数</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode cur, TreeNode parent)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (cur == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">int</span> l = dfs(cur.left, cur);</span><br><span class="line">        <span class="hljs-keyword">int</span> r = dfs(cur.right, cur);</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">int</span> result = l + r;         <span class="hljs-comment">// 移动好左右子树需要的移动次数</span></span><br><span class="line">        <span class="hljs-comment">// 修改当前结点父节点的硬币值</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (cur.val &lt; <span class="hljs-number">1</span>) &#123;</span><br><span class="line">            <span class="hljs-comment">// 当前结点硬币值小于1，从父节点移动硬币到当前结点,父节点硬币数量减少</span></span><br><span class="line">            result += (<span class="hljs-number">1</span> - cur.val);</span><br><span class="line">            parent.val -= (<span class="hljs-number">1</span> - cur.val);</span><br><span class="line">        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (cur.val &gt; <span class="hljs-number">1</span>) &#123;</span><br><span class="line">            <span class="hljs-comment">// 当前结点硬币值大于1，将多余的硬币值移动到父节点，父节点硬币数量增加</span></span><br><span class="line">            result += (cur.val - <span class="hljs-number">1</span>);</span><br><span class="line">            parent.val += (cur.val - <span class="hljs-number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
+<div class="card card-transparent">
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous is-invisible is-hidden-mobile">
+            <a class="is-flex-grow has-text-black-ter" href="/tags/Depth-first-Search/page/0/">上一页</a>
         </div>
-        
-        
-        
-    </div>
+        <div class="pagination-next">
+            <a class="is-flex-grow has-text-black-ter" href="/tags/Depth-first-Search/page/2/">下一页</a>
+        </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link is-current" href="/tags/Depth-first-Search/">1</a></li>
+            
+            <li><a class="pagination-link has-text-black-ter" href="/tags/Depth-first-Search/page/2/">2</a></li>
+            
+        </ul>
+    </nav>
 </div>
-
-
-
-
-
-
-
-
 </div>
                 
 
@@ -708,7 +776,7 @@ var _hmt = _hmt || [];
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        9
+                        11
                     </p>
                 </div>
             </div>
@@ -758,7 +826,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">leetcode</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">9</span>
+                <span class="level-item tag">11</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/leetcode/Medium/">
@@ -766,7 +834,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">Medium</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">9</span>
+                <span class="level-item tag">11</span>
             </span>
         </a></li></ul></li>
             </ul>
@@ -780,7 +848,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 13.33px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic-Programming</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 13.33px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 16.67px;">Union-Find</a>
+        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 13.33px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic-Programming</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 16.67px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 16.67px;">Union-Find</a>
     </div>
 </div>
 
@@ -794,6 +862,44 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/08/17/loud-and-rich/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="loud-and-rich">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/loud-and-rich/" class="has-link-black-ter is-size-6">loud-and-rich</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/17/house-robber-iii/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="house-robber-iii">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/house-robber-iii/" class="has-link-black-ter is-size-6">house-robber-iii</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -852,44 +958,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/friend-circles/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="friend-circles">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:42:01.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/friend-circles/" class="has-link-black-ter is-size-6">friend-circles</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/27/minesweeper/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="minesweeper">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:27:36.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/minesweeper/" class="has-link-black-ter is-size-6">minesweeper</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -908,7 +976,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -965,7 +1033,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">9</span>
+                        <span class="tag is-grey">11</span>
                     </a>
                 </div>
                 
@@ -986,7 +1054,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Tree/">
                         <span class="tag">Tree</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
@@ -1022,6 +1090,44 @@ var _hmt = _hmt || [];
         
         <article class="media">
             
+            <a href="/2019/08/17/loud-and-rich/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="loud-and-rich">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/loud-and-rich/" class="has-link-black-ter is-size-6">loud-and-rich</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2019/08/17/house-robber-iii/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="house-robber-iii">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time></div>
+                    <a href="/2019/08/17/house-robber-iii/" class="has-link-black-ter is-size-6">house-robber-iii</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/10/all-nodes-distance-k-in-binary-tree/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="all-nodes-distance-k-in-binary-tree">
@@ -1077,44 +1183,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/07/27/friend-circles/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="friend-circles">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:42:01.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/friend-circles/" class="has-link-black-ter is-size-6">friend-circles</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/07/27/minesweeper/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="minesweeper">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-07-27T04:27:36.000Z">2019-07-27</time></div>
-                    <a href="/2019/07/27/minesweeper/" class="has-link-black-ter is-size-6">minesweeper</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1133,7 +1201,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">3</span>
+                    <span class="level-item tag">5</span>
                 </span>
             </a>
         </li>
@@ -1190,7 +1258,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">9</span>
+                        <span class="tag is-grey">11</span>
                     </a>
                 </div>
                 
@@ -1211,7 +1279,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Tree/">
                         <span class="tag">Tree</span>
-                        <span class="tag is-grey">2</span>
+                        <span class="tag is-grey">3</span>
                     </a>
                 </div>
                 
