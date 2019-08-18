@@ -154,6 +154,63 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2019-08-18T03:27:37.000Z">2019-08-18</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    5 分钟 读完 (大约 704 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2019/08/18/decode-string/">decode-string</a>
+            
+        </h1>
+        <div class="content">
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/decode-string/" target="_blank" rel="noopener">decode-string</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>给定一个经过编码的字符串，返回它解码后的字符串。编码规则为: k[encoded_string]，表示其中方括号内部的 encoded_string 正好重复 k 次。注意 k 保证为正整数。你可以认为输入字符串总是有效的；输入字符串中没有额外的空格，且输入的方括号总是符合格式要求的。此外，你可以认为原始数据不包含数字，所有的数字只表示重复的次数 k ，例如不会出现像 3a 或 2[4] 的输入。</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>基本上，我们可以理解为只用三种情况</p>
+<ol>
+<li>字母字符串，直接返回</li>
+<li>数字字符串，后边跟了各’[‘，将他的下层返回的字符字符串加倍存储。</li>
+<li>‘]’一层结束的标志，返回字符字符串。</li>
+</ol>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="栈（Stack）"><a href="#栈（Stack）" class="headerlink" title="栈（Stack）"></a>栈（Stack）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">decodeString</span><span class="hljs-params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuilder result = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line">        LinkedList&lt;String&gt; stack = <span class="hljs-keyword">new</span> LinkedList&lt;String&gt;();</span><br><span class="line">        <span class="hljs-keyword">int</span> index = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">while</span> (index &lt; s.length()) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (Character.isLetter(s.charAt(index))) &#123;</span><br><span class="line">                <span class="hljs-comment">// 字母字符串</span></span><br><span class="line">                StringBuilder cur = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line">                <span class="hljs-keyword">while</span>(index &lt; s.length() &amp;&amp; Character.isLetter(s.charAt(index))) &#123;</span><br><span class="line">                    cur.append(s.charAt(index));</span><br><span class="line">                    index++;</span><br><span class="line">                &#125;</span><br><span class="line">                stack.push(cur.toString());</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Character.isDigit(s.charAt(index))) &#123;</span><br><span class="line">                <span class="hljs-comment">// 数字字符串</span></span><br><span class="line">                <span class="hljs-keyword">int</span> j = index;</span><br><span class="line">                <span class="hljs-keyword">while</span> (Character.isDigit(s.charAt(j))) j++;</span><br><span class="line">                stack.push(s.substring(index, j));</span><br><span class="line">                index = j + <span class="hljs-number">1</span>;</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                <span class="hljs-keyword">while</span> (index &lt; s.length() &amp;&amp; s.charAt(index) == <span class="hljs-string">']'</span>) &#123;</span><br><span class="line">                    <span class="hljs-comment">// 一层结束</span></span><br><span class="line">                    StringBuilder tmp = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line">                    String s2 = stack.pop();</span><br><span class="line">                    String s1 = stack.pop();</span><br><span class="line">                    <span class="hljs-keyword">if</span> (Character.isDigit(s1.charAt(<span class="hljs-number">0</span>))) &#123;</span><br><span class="line">                        <span class="hljs-comment">// 将栈里最后两个字符串合并（数字 * 字母）</span></span><br><span class="line">                        <span class="hljs-keyword">int</span> k = Integer.parseInt(s1);</span><br><span class="line">                        <span class="hljs-keyword">while</span> (k-- &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                            tmp.append(s2);</span><br><span class="line">                        &#125;</span><br><span class="line">                        index++;</span><br><span class="line">                    &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                        <span class="hljs-comment">// 有可能同一层里套了多个子层，所以，有可能是两个字符串，需要先合并如 "2[3[a]2[b]]"， 我们</span></span><br><span class="line">                        <span class="hljs-comment">// 在完成2[b]合并的同时，栈里是[2, aa, bb],我们需要将aa也合并，直到栈里的前一个字符串是数字。</span></span><br><span class="line">                        tmp.append(s1);</span><br><span class="line">                        tmp.append(s2);</span><br><span class="line">                    &#125;</span><br><span class="line">                    stack.push(tmp.toString());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-comment">// 最外一层合并，如例子 "3[a]2[bc]"</span></span><br><span class="line">        <span class="hljs-keyword">while</span> (!stack.isEmpty()) &#123;</span><br><span class="line">            result.append(stack.removeLast());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> result.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><p>事实上，感觉这题不是经典的深搜，更加符合stack的标签，不过理解为深搜也没毛病。</p>
+<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> String <span class="hljs-title">decodeString</span><span class="hljs-params">(String s)</span> </span>&#123;</span><br><span class="line">        StringBuilder result = <span class="hljs-keyword">new</span> StringBuilder();</span><br><span class="line">        dfs(s.toCharArray(), <span class="hljs-number">0</span>, result);</span><br><span class="line">        <span class="hljs-keyword">return</span> result.toString();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">char</span>[] cc, <span class="hljs-keyword">int</span> start, StringBuilder str)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">while</span> (start &lt; cc.length) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (Character.isDigit(cc[start])) &#123;</span><br><span class="line">                <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;</span><br><span class="line">                <span class="hljs-keyword">while</span> (Character.isDigit(cc[start])) &#123;</span><br><span class="line">                    count = count * <span class="hljs-number">10</span> + cc[start] - <span class="hljs-string">'0'</span>;</span><br><span class="line">                    start++;</span><br><span class="line">                &#125;</span><br><span class="line">                StringBuilder inner = <span class="hljs-keyword">new</span> StringBuilder();      <span class="hljs-comment">// 将下一层解析的字符串结果带回来</span></span><br><span class="line">                <span class="hljs-keyword">int</span> end = dfs(cc, start + <span class="hljs-number">1</span>, inner);</span><br><span class="line">                <span class="hljs-keyword">while</span> (count-- &gt; <span class="hljs-number">0</span>) str.append(inner.toString());   <span class="hljs-comment">// 合并 数字 * 字符串</span></span><br><span class="line">                start = end;</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (Character.isLetter(cc[start])) &#123;</span><br><span class="line">                <span class="hljs-comment">// 存储连续的字符串</span></span><br><span class="line">                <span class="hljs-keyword">while</span> (start &lt; cc.length &amp;&amp; Character.isLetter(cc[start])) &#123;    </span><br><span class="line">                    str.append(cc[start]);</span><br><span class="line">                    start++;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">                <span class="hljs-comment">// ‘]'字符，返回这层结束后的下一个index</span></span><br><span class="line">                <span class="hljs-keyword">return</span> start + <span class="hljs-number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> start;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-08-17T05:43:39.000Z">2019-08-17</time>
                 
                 <div class="level-item">
@@ -636,89 +693,6 @@ var _hmt = _hmt || [];
 
 
 
-    <div class="card">
-    
-    <div class="card-image">
-        <a href="/2019/07/01/regions-cut-by-slashes/" class="image is-7by1">
-            <img class="thumbnail" src="/2019/07/01/regions-cut-by-slashes/region.png" alt="由斜杠划分区域">
-        </a>
-    </div>
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-07-01T03:20:37.000Z">2019-07-01</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    8 分钟 读完 (大约 1259 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/07/01/regions-cut-by-slashes/">由斜杠划分区域</a>
-            
-        </h1>
-        <div class="content">
-            <p>题目链接：<a href="https://leetcode-cn.com/problems/regions-cut-by-slashes/" target="_blank" rel="noopener">regions-cut-by-slashes</a></p>
-<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在由 1 x 1 方格组成的 N x N 网格 grid 中，每个 1 x 1 方块由 /、\ 或空格构成。这些字符会将方块划分为一些共边的区域。（请注意，反斜杠字符是转义的，因此 \ 用 “\“ 表示。）。返回区域的数目。</p>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><ol>
-<li>该题目用用图来表示的话，一目了然。可是表示成了字符串之后，就感觉有点不知从何处下手。</li>
-<li>想办法将图形表示转化成直观的数组表示法。</li>
-</ol>
-<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="并查集（Union-Find）"><a href="#并查集（Union-Find）" class="headerlink" title="并查集（Union Find）"></a>并查集（Union Find）</h2><!-- ![区域划分编号](/region2.png) -->
-<img src="/2019/07/01/regions-cut-by-slashes/region2.png" title="区域划分编号">
-<p>由于每个小区域只填充’/‘或者’&#39;，因此，小区域划分最多有三种情况（编号如上图所示）：</p>
-<ol>
-<li>编号0和编号1在同一个块，编号2和编号3在同一个块。</li>
-<li>编号0和编号2在同一个块，编号1和编号3在同一个块。</li>
-<li>编号0， 1， 2， 3都在同一个块。</li>
-</ol>
-<p>相邻区域间，他们的编号小区域存在一定会在同一个块的情况。其中：</p>
-<ol>
-<li>编号0和上一个区域编号3一定在同一个块。</li>
-<li>编号1和左边区域的编号2一定在同一个块。</li>
-<li>编号2和右边区域的编号1一定在同一个块。</li>
-<li>编号3和下边区域的编号0一定在同一个块。</li>
-</ol>
-<p>我们开始给每个小区域编一个唯一的块号，通过遍历区域，达到数出全部唯一块的数目。</p>
-<h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span>[] grids;            <span class="hljs-comment">// 用数组来表示块编号</span></span><br><span class="line">    <span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> num;                <span class="hljs-comment">// 统计唯一块的数目</span></span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">regionsBySlashes</span><span class="hljs-params">(String[] grid)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = grid.length;</span><br><span class="line">        buildUnionFind(N);</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-comment">// 遍历合并所有的区域</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>; r &lt; grid.length; r++)</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> c = <span class="hljs-number">0</span>; c &lt; grid[r].length(); c++)</span><br><span class="line">                process(r, c, N, grid[r].charAt(c));</span><br><span class="line">        <span class="hljs-keyword">return</span> num;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 构建并查集，初始每个块有一个唯一编号</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">buildUnionFind</span><span class="hljs-params">(<span class="hljs-keyword">int</span> N)</span> </span>&#123;</span><br><span class="line">        grids = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N * N * <span class="hljs-number">4</span>];</span><br><span class="line">        num = N * N * <span class="hljs-number">4</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; grids.length; i++) grids[i] = i;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 根据行和列的序号，得到块在数组中的位置</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">getSubSquare</span><span class="hljs-params">(<span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> c, <span class="hljs-keyword">int</span> N, <span class="hljs-keyword">int</span> ith)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> r * N * <span class="hljs-number">4</span> + c * <span class="hljs-number">4</span> + ith;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 寻找块的根编号</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">find</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">while</span> (grids[p] != p) &#123;</span><br><span class="line">            grids[p] = grids[grids[p]];</span><br><span class="line">            p = grids[p];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 合并两个块</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">union</span><span class="hljs-params">(<span class="hljs-keyword">int</span> p, <span class="hljs-keyword">int</span> q)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> rootP = find(p);</span><br><span class="line">        <span class="hljs-keyword">int</span> rootQ = find(q);</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">if</span> (rootP != rootQ) num--;      <span class="hljs-comment">// 如果两个块拥有不同的编号，合并后，唯一块的数目减1</span></span><br><span class="line">        grids[rootP] = rootQ;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">process</span><span class="hljs-params">(<span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> c, <span class="hljs-keyword">int</span> N, <span class="hljs-keyword">char</span> square)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 获取区域中四个小区域的块编号</span></span><br><span class="line">        <span class="hljs-keyword">int</span> s0 = getSubSquare(r, c, N, <span class="hljs-number">0</span>);</span><br><span class="line">        <span class="hljs-keyword">int</span> s1 = getSubSquare(r, c, N, <span class="hljs-number">1</span>);</span><br><span class="line">        <span class="hljs-keyword">int</span> s2 = getSubSquare(r, c, N, <span class="hljs-number">2</span>);</span><br><span class="line">        <span class="hljs-keyword">int</span> s3 = getSubSquare(r, c, N, <span class="hljs-number">3</span>);</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-comment">// 同一个区域的小区域合并</span></span><br><span class="line">        <span class="hljs-keyword">switch</span>(square) &#123;</span><br><span class="line">            <span class="hljs-keyword">case</span> <span class="hljs-string">'\\'</span>:</span><br><span class="line">                union(s0, s2);</span><br><span class="line">                union(s1, s3);</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            <span class="hljs-keyword">case</span> <span class="hljs-string">'/'</span>:</span><br><span class="line">                union(s0, s1);</span><br><span class="line">                union(s2, s3);</span><br><span class="line">                <span class="hljs-keyword">break</span>;</span><br><span class="line">            <span class="hljs-keyword">default</span>:</span><br><span class="line">                union(s0, s1);</span><br><span class="line">                union(s1, s2);</span><br><span class="line">                union(s2, s3);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="hljs-comment">// 相邻区域的合并</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (r &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            union(s0, getSubSquare(r - <span class="hljs-number">1</span>, c, N, <span class="hljs-number">3</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (r &lt; N - <span class="hljs-number">1</span>) &#123;</span><br><span class="line">            union(s3, getSubSquare(r + <span class="hljs-number">1</span>, c, N, <span class="hljs-number">0</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (c &gt; <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            union(s1, getSubSquare(r, c - <span class="hljs-number">1</span>, N, <span class="hljs-number">2</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">if</span> (c &lt; N - <span class="hljs-number">1</span>) &#123;</span><br><span class="line">            union(s2, getSubSquare(r, c + <span class="hljs-number">1</span>, N, <span class="hljs-number">1</span>));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="深度优先搜索（Depth-first-Search）"><a href="#深度优先搜索（Depth-first-Search）" class="headerlink" title="深度优先搜索（Depth first Search）"></a>深度优先搜索（Depth first Search）</h2><p>我们很难从原图中，将该图转化成一个用数字表示的数组。但是，当我们将原图表示成一个规模*2的数组时，他将可以表示如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">                        0 1 0 1</span><br><span class="line">[&quot;//&quot;, &quot;/ &quot;]    =&gt;      1 0 1 0</span><br><span class="line">                        0 1 0 0</span><br><span class="line">                        1 0 0 0</span><br></pre></td></tr></table></figure>
-
-<p>我们将数字1当做一道墙，数字0当做一个空白块，则没有墙相隔的块，他们属于同一个唯一块。从上数字中，我们可以直观的看出，一共存在3个唯一块。但是这时，属于同一个唯一空白块的小空白块他们可能还不相邻（即在斜对角线上）。我们再把原图表示成一个规模*3数组，表示如下：</p>
-<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">                        0 0 1 0 0 1</span><br><span class="line">                        0 1 0 0 1 0</span><br><span class="line">[&quot;//&quot;, &quot;/ &quot;]    =&gt;      1 0 0 1 0 0</span><br><span class="line">                        0 0 1 0 0 0</span><br><span class="line">                        0 1 0 0 0 0</span><br><span class="line">                        1 0 0 0 0 0</span><br></pre></td></tr></table></figure>
-
-<p>这时，可以清楚的看出，一共存在3个唯一空白块，且在同一个唯一空白块的所有小空白块，都是相邻的了。这个时候，我们就可以采用深度优先搜索，从数组的边界开始，遍历存在多少个不相邻的0，即可得到答案。</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">int</span>[][] grids;          <span class="hljs-comment">// 表示原图的数组</span></span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">regionsBySlashes</span><span class="hljs-params">(String[] grid)</span> </span>&#123;</span><br><span class="line">        buildGrids(grid);</span><br><span class="line">        <span class="hljs-keyword">int</span> count = <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-comment">// 深搜遍历</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> r = <span class="hljs-number">0</span>; r &lt; grids.length; r++) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> c = <span class="hljs-number">0</span>; c &lt; grids[r].length; c++) &#123;</span><br><span class="line">                count += dfs(r, c);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// 将原图表示成规模*3的数组</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title">buildGrids</span><span class="hljs-params">(String[] grid)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span> N = grid.length;</span><br><span class="line">        grids = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[N * <span class="hljs-number">3</span>][N * <span class="hljs-number">3</span>];</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; grid.length; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j = <span class="hljs-number">0</span>; j &lt; grid[i].length(); j++) &#123;</span><br><span class="line">                <span class="hljs-keyword">if</span> (grid[i].charAt(j) == <span class="hljs-string">'/'</span>) &#123;</span><br><span class="line">                    grids[i * <span class="hljs-number">3</span> + <span class="hljs-number">2</span>][j * <span class="hljs-number">3</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">                    grids[i * <span class="hljs-number">3</span> + <span class="hljs-number">1</span>][j * <span class="hljs-number">3</span> + <span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">                    grids[i * <span class="hljs-number">3</span>][j * <span class="hljs-number">3</span> + <span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">                &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (grid[i].charAt(j) == <span class="hljs-string">'\\'</span>) &#123;</span><br><span class="line">                    grids[i * <span class="hljs-number">3</span>][j * <span class="hljs-number">3</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">                    grids[i * <span class="hljs-number">3</span> + <span class="hljs-number">1</span>][j * <span class="hljs-number">3</span> + <span class="hljs-number">1</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">                    grids[i * <span class="hljs-number">3</span> + <span class="hljs-number">2</span>][j * <span class="hljs-number">3</span> + <span class="hljs-number">2</span>] = <span class="hljs-number">1</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(<span class="hljs-keyword">int</span> r, <span class="hljs-keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-comment">// 越界返回0</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (r &lt; <span class="hljs-number">0</span> || r &gt;= grids.length || c &lt; <span class="hljs-number">0</span> || c &gt;= grids[r].length) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-comment">// 遇到墙（数字1）返回0</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (grids[r][c] == <span class="hljs-number">1</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-comment">// 将空白块改为1，并向他四周遍历，结果返回1</span></span><br><span class="line">        grids[r][c] = <span class="hljs-number">1</span>;</span><br><span class="line">        dfs(r - <span class="hljs-number">1</span>, c);</span><br><span class="line">        dfs(r + <span class="hljs-number">1</span>, c);</span><br><span class="line">        dfs(r, c - <span class="hljs-number">1</span>);</span><br><span class="line">        dfs(r, c + <span class="hljs-number">1</span>);</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -777,7 +751,7 @@ var _hmt = _hmt || [];
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        11
+                        12
                     </p>
                 </div>
             </div>
@@ -797,7 +771,7 @@ var _hmt = _hmt || [];
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        7
+                        8
                     </p>
                 </div>
             </div>
@@ -827,7 +801,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">leetcode</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">12</span>
             </span>
         </a><ul><li>
         <a class="level is-marginless" href="/categories/leetcode/Medium/">
@@ -835,7 +809,7 @@ var _hmt = _hmt || [];
                 <span class="level-item">Medium</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">12</span>
             </span>
         </a></li></ul></li>
             </ul>
@@ -849,7 +823,7 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 13.33px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic-Programming</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Tree/" style="font-size: 16.67px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 16.67px;">Union-Find</a>
+        <a href="/tags/Bit-Manipulation/" style="font-size: 10px;">Bit-Manipulation</a> <a href="/tags/Breadth-first-Search/" style="font-size: 13.33px;">Breadth-first-Search</a> <a href="/tags/Depth-first-Search/" style="font-size: 20px;">Depth-first-Search</a> <a href="/tags/Dynamic-Programming/" style="font-size: 10px;">Dynamic-Programming</a> <a href="/tags/Graph/" style="font-size: 10px;">Graph</a> <a href="/tags/Stack/" style="font-size: 10px;">Stack</a> <a href="/tags/Tree/" style="font-size: 16.67px;">Tree</a> <a href="/tags/Union-Find/" style="font-size: 16.67px;">Union-Find</a>
     </div>
 </div>
 
@@ -863,6 +837,25 @@ var _hmt = _hmt || [];
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2019/08/18/decode-string/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="decode-string">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-18T03:27:37.000Z">2019-08-18</time></div>
+                    <a href="/2019/08/18/decode-string/" class="has-link-black-ter is-size-6">decode-string</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -940,25 +933,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/08/03/pyramid-transition-matrix/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pyramid-transition-matrix">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time></div>
-                    <a href="/2019/08/03/pyramid-transition-matrix/" class="has-link-black-ter is-size-6">pyramid-transition-matrix</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -977,7 +951,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -1034,7 +1008,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">11</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -1048,6 +1022,13 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Graph/">
                         <span class="tag">Graph</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Stack/">
+                        <span class="tag">Stack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
@@ -1091,6 +1072,25 @@ var _hmt = _hmt || [];
         
         <article class="media">
             
+            <a href="/2019/08/18/decode-string/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="decode-string">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-18T03:27:37.000Z">2019-08-18</time></div>
+                    <a href="/2019/08/18/decode-string/" class="has-link-black-ter is-size-6">decode-string</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/08/17/loud-and-rich/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="loud-and-rich">
@@ -1165,25 +1165,6 @@ var _hmt = _hmt || [];
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/08/03/pyramid-transition-matrix/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="pyramid-transition-matrix">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-08-03T04:27:19.000Z">2019-08-03</time></div>
-                    <a href="/2019/08/03/pyramid-transition-matrix/" class="has-link-black-ter is-size-6">pyramid-transition-matrix</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a> / <a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1202,7 +1183,7 @@ var _hmt = _hmt || [];
                     <span class="level-item">八月 2019</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">5</span>
+                    <span class="level-item tag">6</span>
                 </span>
             </a>
         </li>
@@ -1259,7 +1240,7 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Depth-first-Search/">
                         <span class="tag">Depth-first-Search</span>
-                        <span class="tag is-grey">11</span>
+                        <span class="tag is-grey">12</span>
                     </a>
                 </div>
                 
@@ -1273,6 +1254,13 @@ var _hmt = _hmt || [];
                 <div class="control">
                     <a class="tags has-addons" href="/tags/Graph/">
                         <span class="tag">Graph</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/Stack/">
+                        <span class="tag">Stack</span>
                         <span class="tag is-grey">1</span>
                     </a>
                 </div>
