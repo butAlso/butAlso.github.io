@@ -2,24 +2,24 @@
 <html lang="zh">
 <head><meta name="generator" content="Hexo 3.9.0">
     <meta charset="utf-8">
-<title>house-robber-iii - butalso</title>
+<title>is-graph-bipartite - butalso</title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
 
-    <meta name="description" content="题目链接：house-robber-iii 题目描述在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。计算在不触动警报的情况下，小偷一晚能够盗取">
-<meta name="keywords" content="Tree,Depth-first-Search">
+    <meta name="description" content="题目链接：is-graph-bipartite 题目描述给定一个无向图graph，当这个图为二分图时返回true。如果我们能将一个图的节点集合分割成两个独立的子集A和B，并使图中的每一条边的两个节点一个来自A集合，一个来自B集合，我们就将这个图称为二分图。graph将会以邻接表方式给出，graph[i]表示图中与节点i相连的所有节点。每个节点都是一个在0到graph.length-1之间的整数。这">
+<meta name="keywords" content="Depth-first-Search,Breadth-first-Search,Graph">
 <meta property="og:type" content="article">
-<meta property="og:title" content="house-robber-iii">
-<meta property="og:url" content="https://butalso.github.io/2019/08/17/house-robber-iii/index.html">
+<meta property="og:title" content="is-graph-bipartite">
+<meta property="og:url" content="https://butalso.github.io/2019/08/31/is-graph-bipartite/index.html">
 <meta property="og:site_name" content="butalso">
-<meta property="og:description" content="题目链接：house-robber-iii 题目描述在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。计算在不触动警报的情况下，小偷一晚能够盗取">
+<meta property="og:description" content="题目链接：is-graph-bipartite 题目描述给定一个无向图graph，当这个图为二分图时返回true。如果我们能将一个图的节点集合分割成两个独立的子集A和B，并使图中的每一条边的两个节点一个来自A集合，一个来自B集合，我们就将这个图称为二分图。graph将会以邻接表方式给出，graph[i]表示图中与节点i相连的所有节点。每个节点都是一个在0到graph.length-1之间的整数。这">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://butalso.github.io/images/og_image.png">
-<meta property="og:updated_time" content="2019-08-17T05:42:42.816Z">
+<meta property="og:updated_time" content="2019-08-31T04:38:33.882Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="house-robber-iii">
-<meta name="twitter:description" content="题目链接：house-robber-iii 题目描述在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。计算在不触动警报的情况下，小偷一晚能够盗取">
+<meta name="twitter:title" content="is-graph-bipartite">
+<meta name="twitter:description" content="题目链接：is-graph-bipartite 题目描述给定一个无向图graph，当这个图为二分图时返回true。如果我们能将一个图的节点集合分割成两个独立的子集A和B，并使图中的每一条边的两个节点一个来自A集合，一个来自B集合，我们就将这个图称为二分图。graph将会以邻接表方式给出，graph[i]表示图中与节点i相连的所有节点。每个节点都是一个在0到graph.length-1之间的整数。这">
 <meta name="twitter:image" content="https://butalso.github.io/images/og_image.png">
 
 
@@ -104,7 +104,7 @@ var _hmt = _hmt || [];
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo.svg" alt="house-robber-iii" height="28">
+                <img src="/images/logo.svg" alt="is-graph-bipartite" height="28">
             
             </a>
         </div>
@@ -146,7 +146,7 @@ var _hmt = _hmt || [];
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-08-17T05:30:47.000Z">2019-08-17</time>
+                <time class="level-item has-text-grey" datetime="2019-08-31T04:25:43.000Z">2019-08-31</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/leetcode/">leetcode</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/leetcode/Medium/">Medium</a>
@@ -156,7 +156,7 @@ var _hmt = _hmt || [];
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 643 个字)
+                    4 分钟 读完 (大约 586 个字)
                 </span>
                 
                 
@@ -165,21 +165,16 @@ var _hmt = _hmt || [];
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                house-robber-iii
+                is-graph-bipartite
             
         </h1>
         <div class="content">
-            <p>题目链接：<a href="https://leetcode-cn.com/problems/house-robber-iii/" target="_blank" rel="noopener">house-robber-iii</a></p>
-<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>在上次打劫完一条街道之后和一圈房屋后，小偷又发现了一个新的可行窃的地区。这个地区只有一个入口，我们称之为“根”。 除了“根”之外，每栋房子有且只有一个“父“房子与之相连。一番侦察之后，聪明的小偷意识到“这个地方的所有房屋的排列类似于一棵二叉树”。 如果两个直接相连的房子在同一天晚上被打劫，房屋将自动报警。计算在不触动警报的情况下，小偷一晚能够盗取的最高金额。</p>
-<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>不相邻的节点和最大值，让我们可以分成两种情况：</p>
-<ol>
-<li>该节点值 + 他的间接子树最大值的和</li>
-<li>他的直接子树最大值的和</li>
-</ol>
-<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> dfs(root);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">dfs</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = root.val;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root.left != <span class="hljs-keyword">null</span>) result += dfs(root.left.left) + dfs(root.left.right);    <span class="hljs-comment">// 该节点左间接子树和最大值</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (root.right != <span class="hljs-keyword">null</span>) result += dfs(root.right.left) + dfs(root.right.right); <span class="hljs-comment">// 该节点右间接子树和最大值</span></span><br><span class="line">        result = Math.max(result, dfs(root.left) + dfs(root.right));    <span class="hljs-comment">// 比较选择包含该节点还是不包含该节点的和最大值</span></span><br><span class="line">        <span class="hljs-keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>题目链接：<a href="https://leetcode-cn.com/problems/is-graph-bipartite/" target="_blank" rel="noopener">is-graph-bipartite</a></p>
+<h1 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h1><p>给定一个无向图graph，当这个图为二分图时返回true。如果我们能将一个图的节点集合分割成两个独立的子集A和B，并使图中的每一条边的两个节点一个来自A集合，一个来自B集合，我们就将这个图称为二分图。graph将会以邻接表方式给出，graph[i]表示图中与节点i相连的所有节点。每个节点都是一个在0到graph.length-1之间的整数。这图中没有自环和平行边： graph[i] 中不存在i，并且graph[i]中没有重复的值。</p>
+<h1 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h1><p>题目比较容易理解，我们只需要使用深搜或者广搜，将节点分成两部分，如果找到某个节点必须在两部分中同时出现，即该图不可二分。</p>
+<h1 id="算法"><a href="#算法" class="headerlink" title="算法"></a>算法</h1><h2 id="深度优先遍历（Depth-first-Search）"><a href="#深度优先遍历（Depth-first-Search）" class="headerlink" title="深度优先遍历（Depth-first-Search）"></a>深度优先遍历（Depth-first-Search）</h2><h3 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isBipartite</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] graph)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="hljs-keyword">int</span>[] colors = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[graph.length];   <span class="hljs-comment">// 三色标记法，0表示该节点未划分，-1表示该节点在partA，1表示该节点在partB</span></span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; graph.length; i++) &#123;</span><br><span class="line">            <span class="hljs-comment">// 遍历所有节点，对未划分的节点分入partB（因为该节点和之前划分的节点没有边相连，即无所谓partA和partB，这里选partB）</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (colors[i] == <span class="hljs-number">0</span> &amp;&amp; !validColor(graph, colors, <span class="hljs-number">1</span>, i)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">validColor</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] graph, <span class="hljs-keyword">int</span>[] colors, <span class="hljs-keyword">int</span> color, <span class="hljs-keyword">int</span> node)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (colors[node] != <span class="hljs-number">0</span>) &#123;</span><br><span class="line">            <span class="hljs-comment">// 剪支，如果当前节点已经归类，则判断他是不是需要在两部分同时出现</span></span><br><span class="line">            <span class="hljs-keyword">return</span> colors[node] == color;</span><br><span class="line">        &#125;</span><br><span class="line">        colors[node] = color;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j : graph[node]) &#123;</span><br><span class="line">            <span class="hljs-comment">// 找到反例立刻返回</span></span><br><span class="line">            <span class="hljs-keyword">if</span> (!validColor(graph, colors, -color, j)) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="深度优先遍历（优化）（Depth-first-Search）"><a href="#深度优先遍历（优化）（Depth-first-Search）" class="headerlink" title="深度优先遍历（优化）（Depth-first-Search）"></a>深度优先遍历（优化）（Depth-first-Search）</h2><p>在上一解法中，明显可以发现，我们在寻找当前树的最大值时，还需要寻找子树的子树最大值，而在寻找子树的最大值时，我们已经查找过了子树的子树的最大值，即有很多计算是重复的。因此，在深搜过程中，同时返回包含该节点和最大值和不包含该节点和最大值可以给我们运行时间上带来不少优化。</p>
-<h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Definition for a binary tree node.</span></span><br><span class="line"><span class="hljs-comment"> * public class TreeNode &#123;</span></span><br><span class="line"><span class="hljs-comment"> *     int val;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode left;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode right;</span></span><br><span class="line"><span class="hljs-comment"> *     TreeNode(int x) &#123; val = x; &#125;</span></span><br><span class="line"><span class="hljs-comment"> * &#125;</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span> <span class="hljs-title">rob</span><span class="hljs-params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] result = dfs(root);</span><br><span class="line">        <span class="hljs-keyword">return</span> Math.max(result[<span class="hljs-number">0</span>], result[<span class="hljs-number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="hljs-comment">// [0] =&gt; 包含该节点的和最大值</span></span><br><span class="line">    <span class="hljs-comment">// [1] =&gt; 不包含该节点的和最大值</span></span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">int</span>[] dfs(TreeNode root) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (root == <span class="hljs-keyword">null</span>) <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[]&#123;<span class="hljs-number">0</span>, <span class="hljs-number">0</span>&#125;;</span><br><span class="line">        <span class="hljs-keyword">int</span> result = root.val;</span><br><span class="line">        <span class="hljs-keyword">int</span>[] l = dfs(root.left);</span><br><span class="line">        <span class="hljs-keyword">int</span>[] r = dfs(root.right);</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[] &#123;</span><br><span class="line">            root.val + l[<span class="hljs-number">1</span>] + r[<span class="hljs-number">1</span>], Math.max(l[<span class="hljs-number">0</span>], l[<span class="hljs-number">1</span>]) + Math.max(r[<span class="hljs-number">0</span>], r[<span class="hljs-number">1</span>])</span><br><span class="line">            &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="宽度优先遍历（优化）（Breadth-first-Search）"><a href="#宽度优先遍历（优化）（Breadth-first-Search）" class="headerlink" title="宽度优先遍历（优化）（Breadth-first-Search）"></a>宽度优先遍历（优化）（Breadth-first-Search）</h2><h3 id="代码-1"><a href="#代码-1" class="headerlink" title="代码"></a>代码</h3><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">boolean</span> <span class="hljs-title">isBipartite</span><span class="hljs-params">(<span class="hljs-keyword">int</span>[][] graph)</span> </span>&#123;</span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="hljs-keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        <span class="hljs-keyword">int</span>[] colors = <span class="hljs-keyword">new</span> <span class="hljs-keyword">int</span>[graph.length];</span><br><span class="line">        </span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; graph.length; i++) &#123;</span><br><span class="line">            <span class="hljs-keyword">if</span> (colors[i] != <span class="hljs-number">0</span>) <span class="hljs-keyword">continue</span>;   <span class="hljs-comment">// 以染色节点，迅速返回</span></span><br><span class="line">            queue.offer(i);</span><br><span class="line">            colors[i] = <span class="hljs-number">1</span>;  <span class="hljs-comment">// 无所谓1或-1，这里选1</span></span><br><span class="line">            <span class="hljs-keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">                <span class="hljs-keyword">int</span> cur = queue.poll();</span><br><span class="line">                <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> j : graph[cur]) &#123;</span><br><span class="line">                    <span class="hljs-comment">// 一条边上另个节点和当前节点分类相同，即非二分图</span></span><br><span class="line">                    <span class="hljs-keyword">if</span> (colors[j] == colors[cur]) <span class="hljs-keyword">return</span> <span class="hljs-keyword">false</span>;</span><br><span class="line">                    <span class="hljs-keyword">if</span> (colors[j] == <span class="hljs-number">0</span>) &#123;</span><br><span class="line">                        colors[j] = -colors[cur];</span><br><span class="line">                        queue.offer(j);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
         </div>
@@ -188,7 +183,7 @@ var _hmt = _hmt || [];
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/Depth-first-Search/">Depth-first-Search</a>, <a class="has-link-grey -link" href="/tags/Tree/">Tree</a>
+                    <a class="has-link-grey -link" href="/tags/Breadth-first-Search/">Breadth-first-Search</a>, <a class="has-link-grey -link" href="/tags/Depth-first-Search/">Depth-first-Search</a>, <a class="has-link-grey -link" href="/tags/Graph/">Graph</a>
                 </div>
             </div>
         </div>
@@ -238,17 +233,10 @@ var _hmt = _hmt || [];
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/08/17/loud-and-rich/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">loud-and-rich</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/10/all-nodes-distance-k-in-binary-tree/">
-                <span class="level-item">all-nodes-distance-k-in-binary-tree</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/08/24/find-eventual-safe-states/">
+                <span class="level-item">find-eventual-safe-states</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -267,7 +255,7 @@ var _hmt = _hmt || [];
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
 <script>
 	var gitment = new Gitment({
-		id: '2019/08/17/house-robber-iii/',
+		id: '2019/08/31/is-graph-bipartite/',
 		owner: 'butalso',
 		repo: 'butalso.github.io',
 		oauth: {
@@ -864,7 +852,7 @@ var _hmt = _hmt || [];
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo.svg" alt="house-robber-iii" height="28">
+                    <img src="/images/logo.svg" alt="is-graph-bipartite" height="28">
                 
                 </a>
                 <p class="is-size-7">
